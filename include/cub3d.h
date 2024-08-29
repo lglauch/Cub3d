@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/08/29 12:35:02 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/08/29 12:49:29 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
