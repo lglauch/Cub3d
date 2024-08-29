@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/08/29 14:42:59 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/08/29 15:10:19 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int	check_map(char **argv, int argc)
 
 int	main(int argc, char **argv)
 {
-	// void	*mlx;
-
 	if (!(check_map(argv, argc)))
 		return (1);
-	// mlx = mlx_init(800, 800, "Cub3d Kings", 1);
+	init();
 }
