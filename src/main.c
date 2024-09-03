@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/08/29 15:10:19 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/03 17:54:34 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-#include <stdnoreturn.h>
 
 int	check_map(char **argv, int argc)
 {
@@ -42,7 +41,11 @@ int	check_map(char **argv, int argc)
 
 int	main(int argc, char **argv)
 {
+	t_mlx	*cub;
+
 	if (!(check_map(argv, argc)))
-		return (1);
+		return (EXIT_FAILURE);
+	if ((parse_map(argv[1], cub)))
+		return (EXIT_FAILURE);
 	init();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/08/29 15:05:16 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/03 19:32:33 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,20 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
 
-typedef struct s_cub3d_mlx
+typedef struct s_mlx
 {
 	void	*mlx;
-}	t_cub3d_mlx;
-
+	char	**map;
+	int		map_size;
+	int		start_x;
+	int		start_y;
+	char	start_dir;
+	int		c_color;
+	int		f_color;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+}	t_mlx;
 
 #endif
