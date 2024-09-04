@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/08/30 17:27:49 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/04 14:53:14 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	init(void)
 	if (!get_game()->mlx)
 		ft_error();
 	get_game()->img = mlx_new_image(get_game()->mlx, WIDTH, HEIGHT);
-	if (!get_game()->img
-		|| (mlx_image_to_window(get_game()->mlx, get_game()->img, 0, 0) < 0))
+	get_game()->minimap = mlx_new_image(get_game()->mlx, 100, 100);
+	if (!get_game()->img || !get_game()->minimap
+		|| (mlx_image_to_window(get_game()->mlx, get_game()->img, 0, 0) < 0)
+		|| mlx_image_to_window(get_game()->mlx, get_game()->minimap, 0, 0) < 0)
 		ft_error();
-	if (mlx_image_to_window(get_game()->mlx, get_game()->img, 0, 0) == -1)
-		ft_error();
-	get_game()->player.player_x = 1;
-	get_game()->player.player_y = 1;
+	get_game()->player.player_x = 30;
+	get_game()->player.player_y = 30;
 }
 
 int	check_map(char **argv, int argc)
@@ -64,8 +64,9 @@ void	display(void *param)
 {
 	param = NULL;
 	drawplayer();
+	player_movement();
+	// display_minimap();
 }
-
 
 int	main(int argc, char **argv)
 {

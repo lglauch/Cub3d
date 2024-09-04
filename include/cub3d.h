@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/08/30 14:06:05 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/04 14:26:51 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,19 @@
 # define FAIL 1
 # define SUCCESS 0
 
-
 typedef struct s_player
 {
 	float	player_x;
 	float	player_y;
 }	t_player;
 
-
 typedef struct s_cub3d_mlx
 {
-	void		*mlx;
-	void		*img;
-	t_player	player;
+	void			*mlx;
+	mlx_image_t		*img;
+	mlx_image_t		*minimap;
+	t_player		player;
 }	t_cub3d_mlx;
-
 
 t_cub3d_mlx	*get_game(void);
 
@@ -50,9 +48,13 @@ void		create_key_hooks(void);
 //key funcions
 void		esc_func(mlx_key_data_t key_data, void *param);
 void		close_func(void *param);
+void		player_movement(void);
 
 //display
 void		drawplayer(void);
 
+//helper
+void		ft_put_pixel(mlx_image_t *image, uint32_t x,
+				uint32_t y, uint32_t color);
 
 #endif
