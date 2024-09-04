@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/03 17:54:34 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/04 13:34:45 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 
 	if (!(check_map(argv, argc)))
 		return (EXIT_FAILURE);
+	init();
 	if ((parse_map(argv[1], cub)))
 		return (EXIT_FAILURE);
-	init();
 }
