@@ -6,13 +6,13 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/04 13:34:45 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/05 12:44:18 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	check_map(char **argv, int argc)
+int	check_arg(char **argv, int argc)
 {
 	int	length;
 	int	fd;
@@ -43,7 +43,7 @@ int	main(int argc, char **argv)
 {
 	t_mlx	*cub;
 
-	if (!(check_map(argv, argc)))
+	if (!(check_arg(argv, argc)))
 		return (EXIT_FAILURE);
 	init();
 	if ((parse_map(argv[1], cub)))

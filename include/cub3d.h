@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/03 19:32:33 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/05 13:42:35 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	char	**map;
-	int		map_size;
+	int		map_height;
+	int		map_width;
 	int		start_x;
 	int		start_y;
 	char	start_dir;
@@ -36,5 +37,10 @@ typedef struct s_mlx
 	char	*west;
 	char	*east;
 }	t_mlx;
+
+
+
+//----- parsing.c
+
 
 #endif
