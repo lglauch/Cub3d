@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 11:59:12 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/05 13:42:35 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,20 @@ typedef struct s_player
 {
 	float	player_x;
 	float	player_y;
+  char	start_dir;
 }	t_player;
 
 typedef struct s_map
 {
 	char	**map;
+  char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+  int		map_height;
+	int		map_width;
+  int		c_color;
+	int		f_color;
 }	t_map;
 
 

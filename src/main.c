@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 11:56:07 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/05 12:44:18 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init(void)
 	get_game()->player.player_y = 30;
 }
 
-int	check_map(char **argv, int argc)
+int	check_arg(char **argv, int argc)
 {
 	int	length;
 	int	fd;
@@ -69,7 +69,9 @@ void	display(void *param)
 
 int	main(int argc, char **argv)
 {
-	if ((check_map(argv, argc)) == 1)
+	if ((check_arg(argv, argc)) == 1)
+		return (EXIT_FAILURE);
+  if ((parse_map(argv[1], cub)))
 		return (EXIT_FAILURE);
 	init();
 	create_key_hooks();
