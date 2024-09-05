@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 12:44:18 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/05 14:07:27 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 {
 	if ((check_arg(argv, argc)) == 1)
 		return (EXIT_FAILURE);
-  if ((parse_map(argv[1], cub)))
+  if ((parse_map(argv[1])))
 		return (EXIT_FAILURE);
 	init();
 	create_key_hooks();

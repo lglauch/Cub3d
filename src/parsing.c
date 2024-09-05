@@ -6,28 +6,28 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:49:04 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/05 13:35:30 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/05 15:15:24 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	save_textures(const char *line, t_mlx *cub)
+int	save_textures(const char *line, t_map map)
 {
 	if (ft_strncmp(line, "NO ", 3))
-		save_texture(line, &cub->north);
+		save_texture(line, &map.north);
 	else if (ft_strncmp(line, "SO ", 3))
-		save_texture(line, &cub->south);
+		save_texture(line, &map.south);
 	else if (ft_strncmp(line, "WE ", 3))
-		save_texture(line, &cub->west);
+		save_texture(line, &map.west);
 	else if (ft_strncmp(line, "EA ", 3))
-		save_texture(line, &cub->east);
+		save_texture(line, &map.east);
 	else
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-void	save_colors(const char *line, t_mlx *cub)
+void	save_colors(const char *line, t_map map)
 {
 	int		i;
 	int		color;
@@ -50,118 +50,84 @@ void	save_colors(const char *line, t_mlx *cub)
 		i++;
 	}
 	if (*line == 'F')
-		cub->f_color = color;
+		map.f_color = color;
 	else if (*line == 'C')
-		cub->c_color = color;
+		map.c_color = color;
 }
 
-int	save_player_loc(char *line, int i, int n, t_mlx *cub)
+int	save_player_loc(char *line, int i, int n)
 {
-	if (cub->start_x == -1)
+	t_player	hans;
+
+	hans = get_game()->player;
+	if (hans.player_x == -1)
 	{
-		cub->start_dir = line[i];
-		cub->start_x = i;
-		cub->start_y = n;
+		hans.start_dir = line[i];
+		hans.player_x = i;
+		hans.player_y = n;
 		return (EXIT_SUCCESS);
 	}
 	else
 		return (EXIT_FAILURE);
 }
 
-int	check_map(char	*line, t_mlx *cub, int fd)
+int	check_map(char	*line, t_map map, int fd)
 {
+	int	width;
 	int	i;
 	int	n;
 
 	i = 0;
 	n = 0;
+	width = 0;
 	while (line && contains_only(line, "01 \n"))
 	{
 		i = -1;
 		while (line[++i])
 		{
-			if (ft_strchr("NSEW", line[i]) && save_player_loc(line, i, n, cub))
+			if (ft_strchr("NSEW", line[i]) && save_player_loc(line, i, n))
 				error_exit("Error: only one player is allowed", line, fd);
 			else if (!ft_strchr("01 \n", line[i]))
 				error_exit("Error: invalid map", line, fd);
+			if (line[i] != '\n' && i > width)
+				width = i;
 		}
 		n++;
 		line = next_line(line, fd);
 	}
 	if (line != NULL)
 		error_exit("Error: invalid map", line, fd);
-	cub->map_size = n;
+	map.map_height = n;
+	map.map_width = width;
 	free (line);
 	close (fd);
 	return (EXIT_SUCCESS);
 }
 
-void	save_map(char *file, t_mlx *cub)
+int	parse_map(char	*file)
 {
 	int		fd;
-	int		n;
 	char	*line;
-	char	**map;
 
-	n = 0;
 	fd = open(file, O_RDONLY);
 	line = get_next_line(fd);
-	map = (char *)ft_malloc(cub->map_size * sizeof(char *) + 1);
-	while (line && !contains_any(line, (const char *[]){"1", "0"}, 2))
-		line = next_line(line, fd);
-	while (line && contains_any(line, (const char *[]){"1", "0"}, 2))
-	{
-		if (line[ft_strlen(line) - 1] == '\n')
-			line[ft_strlen(line) - 1] == '\0';
-		map[n++] = ft_strdup(line);
-		line = next_line(line, fd);
-	}
-	map[n] = NULL;
-	map[cub->start_y][cub->start_x] = '0';
-	cub->map = map;
-}
-
-int	flood_fill(char **map, int x, int y, int max_height)
-{
-	int	row_length;
-
-	if (y < 0 || y >= max_height || map[y] == NULL)
-		return ;
-	row_length = ft_strlen(map[y]);
-	if (x < 0 || x >= row_length || map[y][x] == '1')
-		return ;
-	if (map[y][x] == ' ' || map[y][x] == '\0')
-		return (EXIT_FAILURE);
-	map[y][x] =
-	flood_fill(map, x + 1, y, max_height);
-	flood_fill(map, x - 1, y, max_height);
-	flood_fill(map, x, y + 1, max_height);
-	flood_fill(map, x, y - 1, max_height);
-}
-
-int	parse_map(char	*file, t_mlx *cub)
-{
-	int		fd;
-	char	*line;
-
-	fd = open(file, O_RDONLY);
-	while (line = get_next_line(fd))
+	while (line)
 	{
 		if (compare_any(line, (char *[]){"NO ", "SO ", "WE ", "EA "}, 4, 3))
-			save_textures(line, cub);
+			save_textures(line, get_game()->map);
 		else if (compare_any(line, (char *[]){"F ", "C "}, 2, 2))
-			save_colors(line, cub);
+			save_colors(line, get_game()->map);
 		else if (contains_only(line, "10 \n"))
 		{
-			check_map(line, cub, fd);
-			save_map(file, cub);
+			check_map(line, get_game()->map, fd);
+			save_map(file, get_game()->map);
 			break ;
 		}
 		else if (!contains_only(line, " \n"))
 			error_exit("Error: invalid map", line, fd);
-		free (line);
+		next_line(line, fd);
 	}
 	close (fd);
-	flood_fill(cub);
+	// flood_fill(cub);
 	return (EXIT_SUCCESS);
 }
