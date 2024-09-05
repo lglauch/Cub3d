@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/04 14:53:14 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/05 11:56:07 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	ft_error(void)
 
 void	init(void)
 {
-	get_game()->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D you belong to me", 0);
+	get_game()->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D you belong to me", true);
 	if (!get_game()->mlx)
 		ft_error();
 	get_game()->img = mlx_new_image(get_game()->mlx, WIDTH, HEIGHT);
-	get_game()->minimap = mlx_new_image(get_game()->mlx, 100, 100);
+	get_game()->minimap = mlx_new_image(get_game()->mlx, WIDTH / 6, WIDTH / 6);
 	if (!get_game()->img || !get_game()->minimap
 		|| (mlx_image_to_window(get_game()->mlx, get_game()->img, 0, 0) < 0)
 		|| mlx_image_to_window(get_game()->mlx, get_game()->minimap, 0, 0) < 0)
@@ -63,9 +63,8 @@ int	check_map(char **argv, int argc)
 void	display(void *param)
 {
 	param = NULL;
-	drawplayer();
+	drawplayer_minimap();
 	player_movement();
-	// display_minimap();
 }
 
 int	main(int argc, char **argv)
