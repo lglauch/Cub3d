@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   key_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/29 15:07:38 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/04 13:16:49 by lglauch          ###   ########.fr       */
+/*   Created: 2024/08/30 12:44:09 by lglauch           #+#    #+#             */
+/*   Updated: 2024/09/04 12:18:40 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-t_cub3d_mlx	*get_game(void)
+void	esc_func(mlx_key_data_t key_data, void *param)
 {
-	static t_cub3d_mlx	game;
-
-	return (&game);
+	param = NULL;
+	if (key_data.key == MLX_KEY_ESCAPE)
+	{
+		mlx_terminate(get_game()->mlx);
+		exit (EXIT_SUCCESS);
+	}
 }
 
-void	ft_put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color)
+void	close_func(void *param)
 {
-	if (!image)
-		return ;
-	if (x >= 0 && y >= 0 && x < image->width && y < image->height)
-		mlx_put_pixel(image, x, y, color);
+	param = NULL;
+	mlx_terminate(get_game()->mlx);
+	exit (EXIT_SUCCESS);
 }
