@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:49:45 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 13:42:34 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/11 15:10:06 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,11 @@
 
 void	draw_map_on_minimap(void)
 {
-    printf("Test\n");
+    // printf("Test\n");
     int x, y, sx, sy; // sx and sy for scaling loops
 	int color;
 	color = 0;
-    char *map[] = {
-        "11111111111111111111111111",
-        "10000000000000000000000001",
-        "10000000010000000000000001",
-		"10000000010000000000000001",
-		"10000000011110000011100001",
-		"10000000000001000000000001",
-		"10000000000001000011100001",
-		"10000000000001000011100001",
-		"10000000000000000000000001",
-		"11111111111111111111111111",
-        NULL // Indicates the end of the array
-    };
+    char **map = get_game()->map.map;
     int map_height = sizeof(map) / sizeof(map[0]) - 1; // Subtract 1 for NULL terminator
     int map_width = ft_strlen(map[0]); // Assuming all rows are the same length
 
@@ -116,9 +104,9 @@ void	drawplayer_minimap(void)
 	counter = 0;
 	ft_memset(get_game()->minimap->pixels, 0,
 		(get_game()->minimap->height * get_game()->minimap->width) * 4);
-	printf("Test\n");
+	// printf("Test\n");
 	draw_map_on_minimap();
-	printf("Test\n");
+	// printf("Test\n");
 	draw_player_form_minimap(player_x, player_y, counter);
 	draw_minimap_border();
 }

@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 15:10:45 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/11 17:09:21 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 
 typedef struct s_player
 {
-	float	player_x;
-	float	player_y;
- 	char	start_dir;
+	float		player_x;
+	float		player_y;
+ 	char		start_dir;
 }	t_player;
 
 typedef struct s_map
@@ -40,6 +40,8 @@ typedef struct s_map
 	char	*south;
 	char	*west;
 	char	*east;
+	int		wall;
+	int		floor;
  	int		map_height;
 	int		map_width;
  	int		c_color;
@@ -71,6 +73,7 @@ void		drawplayer_minimap(void);
 //helper
 void		ft_put_pixel(mlx_image_t *image, uint32_t x,
 				uint32_t y, uint32_t color);
+void		*ft_malloc(size_t size);
 
 //parsing
 int			parse_map(char	*file);
@@ -79,11 +82,14 @@ int			parse_map(char	*file);
 bool		compare_any(const char *str, char *substr[], int num_str, int n);
 bool		contains_only(const char *str, const char *allowedchars);
 char		*next_line(char *line, int fd);
-void		save_texture(const char *line, char **texture);
+void		save_texture(const char *line, char *texture);
 void		error_exit(char *message, char *line, int fd);
 
 //parsing_utils_two
 void		fill_spaces(char *str, int start, int size);
+bool		flood_fill(char **map, int x, int y, int max_height);
+void		save_map(char *file, t_map *game);
+void		print_map(char **map);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:05:13 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/04 18:51:50 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:58:13 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	compare_any(const char *str, char *substr[], int num_str, int n)
 	i = 0;
 	while (i < num_str)
 	{
-		if (ft_strncmp(str, substr[i], n))
+		if (!ft_strncmp(str, substr[i], n))
 			return (true);
 		i++;
 	}
@@ -44,20 +44,21 @@ char	*next_line(char *line, int fd)
 	return (line);
 }
 
-void	save_texture(const char *line, char **texture)
+void	save_texture(const char *line, char *texture)
 {
 	int	i;
 
 	i = 3;
 	while (line[i] == ' ')
 		i++;
-	*texture = ft_strdup(line + i);
+	texture = ft_strdup(line + i);
 }
 
 void	error_exit(char *message, char *line, int fd)
 {
 	free (line);
 	close (fd);
-	ft_putstr_fd(message, 2);
-	exit ;
+	ft_putendl_fd(message, 2);
+	printf("hello\n");
+	exit (1);
 }

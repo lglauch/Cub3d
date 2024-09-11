@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 14:07:27 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/11 17:48:28 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	init(void)
 		|| (mlx_image_to_window(get_game()->mlx, get_game()->img, 0, 0) < 0)
 		|| mlx_image_to_window(get_game()->mlx, get_game()->minimap, 0, 0) < 0)
 		ft_error();
-	get_game()->player.player_x = 30;
-	get_game()->player.player_y = 30;
+	get_game()->player.player_x = -1;
+	get_game()->player.player_y = -1;
 }
 
 int	check_arg(char **argv, int argc)
@@ -62,21 +62,38 @@ int	check_arg(char **argv, int argc)
 
 void	display(void *param)
 {
-	param = NULL;
+	(void)param;
 	drawplayer_minimap();
 	player_movement();
 }
 
+void	print_map(char **map)
+{
+	int	i = 0;
+	int	max_height = get_game()->map.map_height;
+
+	while (i < max_height)
+	{
+		printf("line %d: %s\n", i, map[i]);
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	if ((check_arg(argv, argc)) == 1)
-		return (EXIT_FAILURE);
-  if ((parse_map(argv[1])))
+	
+	if (check_arg(argv, argc))
 		return (EXIT_FAILURE);
 	init();
-	create_key_hooks();
-	mlx_loop_hook(get_game()->mlx, &display, get_game()->mlx);
-	mlx_loop(get_game()->mlx); //should be the last function after every mlx stuff is ready
-	mlx_terminate(get_game()->mlx);
+	printf("TEST\n");
+  	if (parse_map(argv[1]))
+		return (EXIT_FAILURE);
+	printf("Final Map\n\n");
+	print_map(get_game()->map.map);
+	// create_key_hooks();
+	// mlx_loop_hook(get_game()->mlx, &display, get_game()->mlx);
+	// mlx_loop(get_game()->mlx); //should be the last function after every mlx stuff is ready
+	// mlx_terminate(get_game()->mlx);
 	return (EXIT_SUCCESS);
 }
+
