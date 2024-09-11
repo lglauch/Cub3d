@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:42:42 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 15:37:02 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:44:48 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	get_color(char c)
 	if (c == '1')
 		return (0x1A237E);
 	else if (c == '0')
-		return (0xFFFF00);
+		return (0x000000);
 	else
 		return (0x000000);
 }
@@ -38,10 +38,10 @@ void	draw_minimap_tile(t_minimap *minimap, int x, int y)
 	draw_x = 0;
 	draw_y = 0;
 	minimap->sx = 0;
-	while (minimap->sx < minimap->scale_x)
+	while (minimap->sx < minimap->scale_x - 1)
 	{
 		minimap->sy = 0;
-		while (minimap->sy < minimap->scale_y)
+		while (minimap->sy < minimap->scale_y - 1)
 		{
 			draw_x = (int)(x * minimap->scale_x) + minimap->sx;
 			draw_y = (int)(y * minimap->scale_y) + minimap->sy;
@@ -52,6 +52,24 @@ void	draw_minimap_tile(t_minimap *minimap, int x, int y)
 	}
 }
 
+// void	clear_minimap_background(t_minimap *minimap, int clear_color)
+// {
+// 	int	x;
+// 	int	y;
+
+// 	x = 0;
+// 	y = 0;
+// 	while (y < minimap->minimap_height * minimap->scale_y)
+// 	{
+// 		while (x < minimap->minimap_width * minimap->scale_x)
+// 		{
+// 			ft_put_pixel (get_game()->minimap, x, y, clear_color);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
 void	draw_on_minimap(t_minimap *minimap, char **map)
 {
 	int	x;
@@ -59,6 +77,7 @@ void	draw_on_minimap(t_minimap *minimap, char **map)
 
 	x = 0;
 	y = 0;
+	// clear_minimap_background(minimap, 0x202020);
 	while (y < minimap->map_height)
 	{
 		x = 0;
@@ -71,4 +90,3 @@ void	draw_on_minimap(t_minimap *minimap, char **map)
 		y++;
 	}
 }
-

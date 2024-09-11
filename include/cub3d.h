@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 15:33:38 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:10:49 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,15 @@
 # define HEIGHT 1200
 # define FAIL 1
 # define SUCCESS 0
+# define SPEED 5
 
 typedef struct s_player
 {
 	float	player_x;
 	float	player_y;
+	float	player_dx;
+	float	player_dy;
+	float	player_a;
 }	t_player;
 
 typedef struct s_map

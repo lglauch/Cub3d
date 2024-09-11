@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:49:45 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 15:38:19 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/11 13:55:51 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	draw_map_on_minimap(void)
 
     char *map[] = {
         "11111111111111111111111111",
-        "10000000000000000000000001",
-        "10000000010000000000000001",
-		"10000000010000000000000001",
+        "10000000000000000100000001",
+        "10000000010000000100000001",
+		"10000000010000000100000001",
 		"10000000011110000011100001",
 		"10000000000001000000000001",
 		"10000000000001000011100001",
@@ -63,25 +63,29 @@ void	draw_minimap_border(void)
 	}
 }
 
-void	draw_player_form_minimap(int player_x, int player_y, int counter)
+void	draw_player_form_minimap(int player_x, int player_y)
 {
-	while (true)
-	{
-		ft_put_pixel(get_game()->minimap, player_x + counter,
-			player_y - counter, 0xFF0000FF);
-		counter++;
-		if (counter > 5)
-			break ;
-	}
-	counter = 0;
-	while (true)
-	{
-		ft_put_pixel(get_game()->minimap, player_x - counter,
-			player_y - counter, 0xFF0000FF);
-		counter++;
-		if (counter > 5)
-			break ;
-	}
+	ft_put_pixel(get_game()->minimap, player_x, player_y, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x - 2, player_y - 2, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x - 1, player_y - 2, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x, player_y - 2, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x + 1, player_y - 2, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x + 2, player_y - 2, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x - 2, player_y - 1, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x - 1, player_y - 1, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x + 1, player_y - 1, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x + 2, player_y - 1, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x - 2, player_y, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x + 2, player_y, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x - 2, player_y + 1, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x - 1, player_y + 1, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x + 1, player_y + 1, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x + 2, player_y + 1, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x - 2, player_y + 2, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x - 1, player_y + 2, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x, player_y + 2, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x + 1, player_y + 2, 0xFF0000FF);
+	ft_put_pixel(get_game()->minimap, player_x + 2, player_y + 2, 0xFF0000FF);
 }
 
 void	drawplayer_minimap(void)
@@ -96,23 +100,6 @@ void	drawplayer_minimap(void)
 	ft_memset(get_game()->minimap->pixels, 0,
 		(get_game()->minimap->height * get_game()->minimap->width) * 4);
 	draw_map_on_minimap();
-	draw_player_form_minimap(player_x, player_y, counter);
+	draw_player_form_minimap(player_x, player_y);
 	draw_minimap_border();
-}
-
-void	player_movement(void)
-{
-	void	*param;
-
-	param = get_game()->mlx;
-	if (mlx_is_key_down(param, MLX_KEY_W) && get_game()->player.player_y > 0)
-		get_game()->player.player_y--;
-	if (mlx_is_key_down(param, MLX_KEY_S) && get_game()->player.player_y + 1
-		< get_game()->minimap->height)
-		get_game()->player.player_y++;
-	if (mlx_is_key_down(param, MLX_KEY_A) && get_game()->player.player_x > 0)
-		get_game()->player.player_x--;
-	if (mlx_is_key_down(param, MLX_KEY_D) && get_game()->player.player_x + 1
-		< get_game()->minimap->width)
-		get_game()->player.player_x++;
 }
