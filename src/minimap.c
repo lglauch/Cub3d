@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:49:45 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 13:42:34 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/05 15:38:19 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	draw_map_on_minimap(void)
 {
-    printf("Test\n");
-    int x, y, sx, sy; // sx and sy for scaling loops
-	int color;
-	color = 0;
+	t_minimap	minimap;
+	// char		**map;
+
     char *map[] = {
         "11111111111111111111111111",
         "10000000000000000000000001",
@@ -29,38 +28,18 @@ void	draw_map_on_minimap(void)
 		"10000000000001000011100001",
 		"10000000000000000000000001",
 		"11111111111111111111111111",
-        NULL // Indicates the end of the array
+        NULL
     };
-    int map_height = sizeof(map) / sizeof(map[0]) - 1; // Subtract 1 for NULL terminator
-    int map_width = ft_strlen(map[0]); // Assuming all rows are the same length
-
-    // Minimap dimensions
-    int minimap_width = WIDTH / 6;
-    int minimap_height = WIDTH / 6; // Assuming square minimap for simplicity
-
-    // Calculate scaling factors
-    float scale_x = (float)minimap_width / map_width;
-    float scale_y = (float)minimap_height / map_height;
-
-    for (y = 0; y < map_height; y++)
-    {
-        for (x = 0; x < map_width; x++)
-        {
-            if (map[y][x] == '1')
-				color = 0x1A237E;
-			if (map[y][x] == '0')
-				color = 0xFFFF00;
-            for (sy = 0; sy < scale_y; sy++)
-            {
-                for (sx = 0; sx < scale_x; sx++)
-                {
-                    int draw_x = (int)(x * scale_x) + sx;
-                    int draw_y = (int)(y * scale_y) + sy;
-                    ft_put_pixel(get_game()->minimap, draw_x, draw_y, color);
-                }
-            }
-        }
-    }
+	minimap = get_game()->minimap_var;
+	minimap.sx = 0;
+	minimap.sy = 0;
+	minimap.map_height = sizeof(map) / sizeof(map[0]) - 1;
+	minimap.map_width = ft_strlen(map[0]);
+	minimap.minimap_height = WIDTH / 6;
+	minimap.minimap_width = WIDTH / 6;
+	minimap.scale_x = (float)minimap.minimap_width / minimap.map_width;
+	minimap.scale_y = (float)minimap.minimap_height / minimap.map_height;
+	draw_on_minimap(&minimap, map);
 }
 
 void	draw_minimap_border(void)
@@ -116,9 +95,7 @@ void	drawplayer_minimap(void)
 	counter = 0;
 	ft_memset(get_game()->minimap->pixels, 0,
 		(get_game()->minimap->height * get_game()->minimap->width) * 4);
-	printf("Test\n");
 	draw_map_on_minimap();
-	printf("Test\n");
 	draw_player_form_minimap(player_x, player_y, counter);
 	draw_minimap_border();
 }

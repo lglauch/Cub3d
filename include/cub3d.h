@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/05 11:59:12 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/05 15:33:38 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ typedef struct s_map
 	char	**map;
 }	t_map;
 
+typedef struct s_minimap
+{
+	int		x;
+	int		y;
+	int		sx;
+	int		sy;
+	int		color;
+	int		map_height;
+	int		map_width;
+	int		minimap_width;
+	int		minimap_height;
+	float	scale_x;
+	float	scale_y;
+}	t_minimap;
 
 typedef struct s_cub3d_mlx
 {
@@ -45,6 +59,7 @@ typedef struct s_cub3d_mlx
 	mlx_image_t		*minimap;
 	t_player		player;
 	t_map			map;
+	t_minimap		minimap_var;
 }	t_cub3d_mlx;
 
 t_cub3d_mlx	*get_game(void);
@@ -63,5 +78,8 @@ void		drawplayer_minimap(void);
 //helper
 void		ft_put_pixel(mlx_image_t *image, uint32_t x,
 				uint32_t y, uint32_t color);
+
+//minimap_utils
+void		draw_on_minimap(t_minimap *minimap, char **map);
 
 #endif
