@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/11 17:48:28 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/12 17:30:03 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	init(void)
 		ft_error();
 	get_game()->player.player_x = -1;
 	get_game()->player.player_y = -1;
+	get_game()->map.c_color = -1;
+	get_game()->map.f_color = -1;
 }
 
 int	check_arg(char **argv, int argc)
@@ -41,19 +43,19 @@ int	check_arg(char **argv, int argc)
 	fd = 0;
 	if (argc != 2 || !argv[1])
 	{
-		printf("Please enter valid input\n");
+		printf("Error: usage: ./cub3D /path_to_the_map\n");
 		return (EXIT_FAILURE);
 	}
 	length = ft_strlen(argv[1]);
 	if (ft_strncmp(&(argv[1][length - 4]), ".cub", 4) != 0 || length < 4)
 	{
-		printf("Invalid file type or name (.cub needed)\n");
+		printf("Error: Invalid file type (.cub needed)\n");
 		return (EXIT_FAILURE);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		printf("Unable to open file\n");
+		printf("Error: Failed opening file\n");
 		return (EXIT_FAILURE);
 	}
 	close(fd);
@@ -69,31 +71,26 @@ void	display(void *param)
 
 void	print_map(char **map)
 {
-	int	i = 0;
+	int	i = -1;
 	int	max_height = get_game()->map.map_height;
 
-	while (i < max_height)
-	{
-		printf("line %d: %s\n", i, map[i]);
-		i++;
-	}
+	printf("width: %d, height: %d\n", get_game()->map.map_width, get_game()->map.map_height);
+	while (++i < max_height)
+		printf("----line %d: %s\n", i, map[i]);
 }
 
 int	main(int argc, char **argv)
 {
-	
+
 	if (check_arg(argv, argc))
-		return (EXIT_FAILURE);
+		return (FAIL);
 	init();
-	printf("TEST\n");
-  	if (parse_map(argv[1]))
-		return (EXIT_FAILURE);
-	printf("Final Map\n\n");
-	print_map(get_game()->map.map);
-	// create_key_hooks();
-	// mlx_loop_hook(get_game()->mlx, &display, get_game()->mlx);
-	// mlx_loop(get_game()->mlx); //should be the last function after every mlx stuff is ready
-	// mlx_terminate(get_game()->mlx);
+  	if (parse_map(argv[1]) || save_map(argv[1]) || check_elements())
+		return (FAIL);
+	create_key_hooks();
+	mlx_loop_hook(get_game()->mlx, &display, get_game()->mlx);
+	mlx_loop(get_game()->mlx); //should be the last function after every mlx stuff is ready
+	mlx_terminate(get_game()->mlx);
 	return (EXIT_SUCCESS);
 }
 

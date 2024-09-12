@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:05:13 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/11 16:58:13 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/12 17:34:12 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,22 @@ bool	contains_only(const char *str, const char *allowedchars)
 	return (true);
 }
 
+bool	contains_any(const char *str, const char *chars)
+{
+	while (*str)
+	{
+		if (ft_strchr(chars, *str))
+			return (true);
+		str++;
+	}
+	return (false);
+}
+
 char	*next_line(char *line, int fd)
 {
 	free (line);
 	line = get_next_line(fd);
 	return (line);
-}
-
-void	save_texture(const char *line, char *texture)
-{
-	int	i;
-
-	i = 3;
-	while (line[i] == ' ')
-		i++;
-	texture = ft_strdup(line + i);
 }
 
 void	error_exit(char *message, char *line, int fd)

@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:07:38 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/11 13:06:32 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/12 17:25:26 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*ft_malloc(size_t size)
 	ptr = malloc(size);
 	if (ptr == NULL)
 	{
-		ft_putstr_fd("Error: memory allocation failed", 2);
+		ft_putstr_fd("Error: Memory allocation failed", 2);
 		return (NULL);
 	}
 	return (ptr);
