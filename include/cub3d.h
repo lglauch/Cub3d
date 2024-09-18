@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/11 13:10:49 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/18 15:39:46 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define FAIL 1
 # define SUCCESS 0
 # define SPEED 5
+# define FOV 60
+
+typedef struct s_raycasting
+{
+	
+}	t_raycasting;
 
 typedef struct s_player
 {
@@ -66,24 +72,29 @@ typedef struct s_cub3d_mlx
 	t_minimap		minimap_var;
 }	t_cub3d_mlx;
 
-t_cub3d_mlx	*get_game(void);
+t_cub3d_mlx		*get_game(void);
+t_raycasting	*getray(void);
 
 //hooks
-void		create_key_hooks(void);
+void			create_key_hooks(void);
 
 //key funcions
-void		esc_func(mlx_key_data_t key_data, void *param);
-void		close_func(void *param);
-void		player_movement(void);
+void			esc_func(mlx_key_data_t key_data, void *param);
+void			close_func(void *param);
+void			player_movement(void);
 
 //display
-void		drawplayer_minimap(void);
+void			drawplayer_minimap(void);
+void		put_line(float dx, float dy, float player_x, float player_y);
 
 //helper
-void		ft_put_pixel(mlx_image_t *image, uint32_t x,
-				uint32_t y, uint32_t color);
+void			ft_put_pixel(mlx_image_t *image, uint32_t x,
+					uint32_t y, uint32_t color);
 
 //minimap_utils
-void		draw_on_minimap(t_minimap *minimap, char **map);
+void			draw_on_minimap(t_minimap *minimap, char **map);
+
+//raycasting
+void			raycasting(void);
 
 #endif

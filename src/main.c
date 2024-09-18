@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/11 13:08:21 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/18 15:40:27 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	display(void *param)
 	param = NULL;
 	drawplayer_minimap();
 	player_movement();
+	raycasting();
 }
 
 int	main(int argc, char **argv)
@@ -75,7 +76,7 @@ int	main(int argc, char **argv)
 	init();
 	create_key_hooks();
 	mlx_loop_hook(get_game()->mlx, &display, get_game()->mlx);
-	mlx_loop(get_game()->mlx); //should be the last function after every mlx stuff is ready
+	mlx_loop(get_game()->mlx);
 	mlx_terminate(get_game()->mlx);
 	return (EXIT_SUCCESS);
 }
