@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/18 15:40:27 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/19 13:11:10 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	display(void *param)
 	param = NULL;
 	drawplayer_minimap();
 	player_movement();
-	raycasting();
+	// raycasting();
 }
 
 int	main(int argc, char **argv)

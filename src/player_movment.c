@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:40:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/18 12:41:51 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/19 12:17:02 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	put_line(float dx, float dy, float player_x, float player_y)
 	int		i;
 
 	steps = fmax((int)fabs(dx), fabs(dy));
+	if (steps == 0)
+		return ;
 	stepx = dx / steps;
 	stepy = dy / steps;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:06:45 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/18 17:00:46 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/19 13:11:21 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,12 @@ void draw_line(float x0, float y0, float x1, float y1) {
 
     x = x0;
     y = y0;
-
-    // Added debugging information before the loop starts
-    printf("Before loop: dx=%f, dy=%f, steps=%d, stepX=%f, stepY=%f\n", dx, dy, steps, stepX, stepY);
-
     for (i = 0; i <= steps; i++) {
-        // Debugging inside the loop to track the progress
-        printf("Loop %d: x=%f, y=%f\n", i, x, y);
-
         ft_put_pixel(get_game()->minimap, round(x), round(y), 0xFFFFFF);
 
         x += stepX;
         y += stepY;
     }
-
-    // Debugging after the loop to confirm completion
-    printf("Line drawing completed.\n");
 }
 
 void raycasting(void) {
@@ -53,14 +43,27 @@ void raycasting(void) {
         return;
     }
 
-    int mapx = 64; // Assuming mapx and mapy are dimensions of the map, not player positions
-    int mapy = 64;
+    int mapx = 27; // Assuming mapx and mapy are dimensions of the map, not player positions
+    int mapy = 10;
     float ra = get_game()->player.player_a;
+    while (ra < 0) {
+        ra += 2 * M_PI;
+    }
+    while (ra >= 2 * M_PI) {
+        ra -= 2 * M_PI;
+    }
     int dof_max = 8;
 
     for (int r = 0; r < 1; r++) {
-        float atan = -1 / tan(ra);
-        float ntan = -tan(ra);
+         float atan, ntan;
+        // Check for ra being 0 or π to avoid division by zero
+        if (ra == 0 || ra == (float)M_PI) {
+            atan = 0; // atan could be set to 0 as it signifies no change in angle
+            ntan = 0; // ntan set to 0 or another value, depending on how you wish to handle this case
+        } else {
+            atan = -1 / tan(ra);
+            ntan = -tan(ra);
+        }
         float rx, ry, xo, yo;
         int dof = 0;
 
@@ -74,7 +77,7 @@ void raycasting(void) {
             rx = (get_game()->player.player_y - ry) * atan + get_game()->player.player_x;
             yo = 64;
             xo = -yo * atan;
-        } else if (ra == 0 || ra == M_PI) { // Looking straight left or right
+        } else if (ra == 0 || ra == (float)M_PI) {
             rx = get_game()->player.player_x;
             ry = get_game()->player.player_y;
             dof = dof_max;
@@ -91,22 +94,27 @@ void raycasting(void) {
         }
 
         while (dof < dof_max) {
-            int mx = (int)rx >> 6;
-            int my = (int)ry >> 6;
-            int mp = my * mapx + mx;
+    int mx = (int)rx >> 6;
+    int my = (int)ry >> 6;
+    int mp = my * mapx + mx;
 
-            if (mp < mapx * mapy && get_game()->map.map[mp] == (char *)1) {
-                dof = dof_max; // Found a wall
-                // Assuming draw_line is a function that draws a line from player position to the wall
-                draw_line(get_game()->player.player_x, get_game()->player.player_y, rx, ry);
-            } else {
-                rx += xo;
-                ry += yo;
-                dof++;
-            }
+    // Add bounds checking for mp
+    if (mp >= 0 && mp < mapx * mapy) {
+        char* mapValue = get_game()->map.map[mp]; // Store the pointer before dereferencing
+        // Validate the pointer before dereferencing
+        if (mapValue && *mapValue == '1') {
+            dof = dof_max; // Found a wall
+            // Assuming draw_line is a function that draws a line from player position to the wall
+            draw_line(get_game()->player.player_x, get_game()->player.player_y, rx, ry);
+        } else {
+            rx += xo;
+            ry += yo;
+            dof++;
+        }
+    } else {
+        // Handle the case where mp is out of bounds, possibly by breaking out of the loop or adjusting rx, ry
+        break; // Simplest solution: break out of the loop if mp is out of bounds
+    }
         }
     }
-
-    // Debugging after the loop to confirm completion
-    printf("Line drawing completed.\n");
 }
