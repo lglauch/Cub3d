@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:09:58 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/19 15:27:54 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:57:51 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,10 @@ int	check_elements(void)
 int	save_map_helper(char *line, int fd, char **map)
 {
 	int	n;
+	int	line_length;
 
 	n = 0;
+	line_length = 0;
 	while (line && contains_only(line, "01NESW \n"))
 	{
 		if (line[ft_strlen(line) - 1] == '\n')
@@ -90,11 +92,13 @@ int	save_map_helper(char *line, int fd, char **map)
 		if (!map[n])
 			return (FAIL);
 		ft_strlcpy(map[n], line, ft_strlen(line) + 1);
-		fill_spaces(map[n], ft_strlen(line), get_game()->map.map_width);
+		line_length = ft_strlen(line);
+		if (line_length < get_game()->map.map_width)
+			fill_spaces(map[n], ft_strlen(line), get_game()->map.map_width);
 		line = next_line(line, fd);
 		n++;
 	}
-	map[n] = NULL;
+	// map[n] = NULL;
 	return (SUCCESS);
 }
 
@@ -108,7 +112,7 @@ int	save_map(char *file)
 	if (fd < 0)
 		return (ft_putendl_fd("Error: opening file", 2), FAIL);
 	line = get_next_line(fd);
-	map = (char **)ft_malloc((get_game()->map.map_height * sizeof(char *)) + 1);
+	map = (char **)ft_malloc((get_game()->map.map_height * sizeof(char *)));
 	if (!map)
 		return (FAIL);
 	while (line && !(contains_only(line, "01 \n") && contains_any(line, "01")))

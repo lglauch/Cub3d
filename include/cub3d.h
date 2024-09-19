@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/19 15:29:22 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:38:54 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -25,12 +26,22 @@
 # define HEIGHT 1200
 # define FAIL 1
 # define SUCCESS 0
+# define SPEED 5
+# define FOV 60
+
+typedef struct s_raycasting
+{
+	
+}	t_raycasting;
 
 typedef struct s_player
 {
-	float		player_x;
-	float		player_y;
- 	char		start_dir;
+	float	player_x;
+	float	player_y;
+ 	char	start_dir;
+	float	player_dx;
+	float	player_dy;
+	float	player_a;
 }	t_player;
 
 typedef struct s_map
@@ -48,6 +59,21 @@ typedef struct s_map
 	int		f_color;
 }	t_map;
 
+typedef struct s_minimap
+{
+	int		x;
+	int		y;
+	int		sx;
+	int		sy;
+	int		color;
+	int		map_height;
+	int		map_width;
+	int		minimap_width;
+	int		minimap_height;
+	float	scale_x;
+	float	scale_y;
+}	t_minimap;
+
 typedef struct s_cub3d_mlx
 {
 	void			*mlx;
@@ -55,20 +81,23 @@ typedef struct s_cub3d_mlx
 	mlx_image_t		*minimap;
 	t_player		player;
 	t_map			map;
+	t_minimap		minimap_var;
 }	t_cub3d_mlx;
 
-t_cub3d_mlx	*get_game(void);
+t_cub3d_mlx		*get_game(void);
+t_raycasting	*getray(void);
 
 //hooks
-void		create_key_hooks(void);
+void			create_key_hooks(void);
 
 //key funcions
-void		esc_func(mlx_key_data_t key_data, void *param);
-void		close_func(void *param);
-void		player_movement(void);
+void			esc_func(mlx_key_data_t key_data, void *param);
+void			close_func(void *param);
+void			player_movement(void);
 
 //display
-void		drawplayer_minimap(void);
+void			drawplayer_minimap(void);
+void		put_line(float dx, float dy, float player_x, float player_y);
 
 //helper
 void		ft_put_pixel(mlx_image_t *image, uint32_t x,
@@ -96,5 +125,13 @@ int			save_textures(const char *line, t_map *map);
 void		save_texture(const char *line, char **texture);
 void		free_and_exit(char *message);
 void		fill_spaces(char *str, int start, int size);
+void			ft_put_pixel(mlx_image_t *image, uint32_t x,
+					uint32_t y, uint32_t color);
+
+//minimap_utils
+void			draw_on_minimap(t_minimap *minimap, char **map);
+
+//raycasting
+void			raycasting(void);
 
 #endif

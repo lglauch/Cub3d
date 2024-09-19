@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:07:38 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/12 17:25:26 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:35:12 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ void	*ft_malloc(size_t size)
 		return (NULL);
 	}
 	return (ptr);
+}
+
+t_raycasting	*getray(void)
+{
+	static t_raycasting	ray;
+
+	return (&ray);
 }
 
 void	ft_put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color)

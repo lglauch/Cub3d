@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_three.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 17:34:31 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/19 15:27:03 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:46:11 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	free_and_exit(char *message)
 
 void	fill_spaces(char *str, int start, int size)
 {
-	while (start <= size)
+	while (start < size)
 	{
 		str[start] = ' ';
 		start++;
