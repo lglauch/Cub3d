@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/12 16:38:12 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:29:22 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,18 @@ bool		compare_any(const char *str, char *substr[], int num_str, int n);
 bool		contains_only(const char *str, const char *allowedchars);
 bool		contains_any(const char *str, const char *chars);
 char		*next_line(char *line, int fd);
-int			save_textures(const char *line, t_map *map);
-void		save_texture(const char *line, char *texture);
 void		error_exit(char *message, char *line, int fd);
 
 //parsing_utils_two
-void		fill_spaces(char *str, int start, int size);
 bool		flood_fill(char **map, int x, int y, int max_height);
 int			save_map(char *file);
 void		print_map(char **map);
+int			check_elements(void);
 
-
+//parsing_utils_three
+int			save_textures(const char *line, t_map *map);
+void		save_texture(const char *line, char **texture);
+void		free_and_exit(char *message);
+void		fill_spaces(char *str, int start, int size);
 
 #endif

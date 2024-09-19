@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/12 17:30:03 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:26:52 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,16 @@ void	print_map(char **map)
 
 int	main(int argc, char **argv)
 {
-
 	if (check_arg(argv, argc))
 		return (FAIL);
 	init();
   	if (parse_map(argv[1]) || save_map(argv[1]) || check_elements())
 		return (FAIL);
+	printf("east: %swest: %snorth: %ssouth: %s", get_game()->map.east, get_game()->map.west, get_game()->map.north, get_game()->map.south);
 	create_key_hooks();
 	mlx_loop_hook(get_game()->mlx, &display, get_game()->mlx);
 	mlx_loop(get_game()->mlx); //should be the last function after every mlx stuff is ready
 	mlx_terminate(get_game()->mlx);
 	return (EXIT_SUCCESS);
 }
-
+// 

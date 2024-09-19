@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:49:04 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/12 17:24:12 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/19 13:16:25 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	check_map_helper(char *line, t_map *map, int fd, int n)
 				error_exit("Error:Invalid map: only one player is allowed", line, fd);
 		}
 		else if (!ft_strchr("01 \n", line[i]))
-			error_exit("Error: Invalid map:" line, fd);
+			error_exit("Error: Invalid map:", line, fd);
 		if (line[i] && i > width)
 			width = i;
 	}
@@ -112,7 +112,6 @@ int	parse_map(char	*file)
 		}
 		else if (!contains_only(line, " \n"))
 			error_exit("Error: invalid map", line, fd);
-
 		line = next_line(line, fd);
 	}
 	close (fd);

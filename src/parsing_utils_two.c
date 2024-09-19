@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:09:58 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/12 17:35:19 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:27:54 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ bool	flood_fill(char **map, int x, int y, int max_height)
 	right = flood_fill(map, x + 1, y, max_height);
 	return (up && down && left && right);
 }
-
 
 int	check_textures(t_map *map)
 {
@@ -64,7 +63,7 @@ int	check_elements(void)
 	t_map	*map;
 
 	map = &get_game()->map;
-	if (!map->east || !map->west || !map->north || !map->south)
+	if (!(map->east) || !(map->west) || !(map->north) || !(map->south))
 		free_and_exit("Error: Invalid map: no texture files found");
 	if (check_textures(map))
 		free_and_exit("Error: Invalid map: error opening texture file");
@@ -75,6 +74,7 @@ int	check_elements(void)
 	if (!flood_fill(map->map, get_game()->player.player_x, \
 	get_game()->player.player_y, map->map_height))
 		free_and_exit("Error: Invalid map: not enclosed by walls");
+	return (SUCCESS);
 }
 
 int	save_map_helper(char *line, int fd, char **map)
@@ -95,6 +95,7 @@ int	save_map_helper(char *line, int fd, char **map)
 		n++;
 	}
 	map[n] = NULL;
+	return (SUCCESS);
 }
 
 int	save_map(char *file)
@@ -121,4 +122,3 @@ int	save_map(char *file)
 	close(fd);
 	return (SUCCESS);
 }
-
