@@ -1,5 +1,5 @@
 # NAME	:= cub3D
-# CFLAGS	:= -Wextra -Wall -Werror -DDEBUG=1 -fsanitize=address
+# CFLAGS	:= -Wextra -Wall -Werror -DDEBUG=1
 # LIBMLX	:= ./MLX42
 
 # HEADERS	:= -I ./include -I $(LIBMLX)/include
@@ -48,7 +48,8 @@ LIBMLX  := ./MLX42
 HEADERS := -I ./include -I $(LIBMLX)/include
 LIBS    := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm libft/libft.a
 SRCS    := src/main.c src/helper.c src/key_functions.c src/key_hooks.c src/minimap.c\
-            src/minimap_utils.c src/player_movment.c src/raycasting.c
+            src/minimap_utils.c src/player_movment.c src/raycasting.c src/parsing_utils_three.c\
+			src/parsing_utils_two.c src/parsing_utils.c src/parsing.c
 OBJS    := ${SRCS:.c=.o}
 
 all: clone libmlx $(NAME)

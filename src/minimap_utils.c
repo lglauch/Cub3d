@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:42:42 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/11 13:44:48 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:04:16 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	get_color(char c)
 {
 	if (c == '1')
 		return (0x1A237E);
-	else if (c == '0')
-		return (0x000000);
 	else
 		return (0x000000);
 }

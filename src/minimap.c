@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:49:45 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/19 13:13:59 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:12:59 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,13 @@ void	draw_map_on_minimap(void)
 {
 	t_minimap	minimap;
 	// char		**map;
-	char *map[] = {
-			"11111111111111111111111111",
-			"10000000000000000100000001",
-			"10000000010000000100000001",
-			"10000000010000000100000001",
-			"10000000011110000011100001",
-			"10000000000001000000000001",
-			"10000000000001000011100001",
-			"10000000000001000011100001",
-			"10000000000000000000000001",
-			"11111111111111111111111111",
-			NULL
-		};
+	char **map = get_game()->map.map;
 	get_game()->map.map = map;
 	minimap = get_game()->minimap_var;
 	minimap.sx = 0;
 	minimap.sy = 0;
-	minimap.map_height = sizeof(map) / sizeof(map[0]) - 1;
-	minimap.map_width = ft_strlen(map[0]);
+	minimap.map_height = get_game()->map.map_height;
+	minimap.map_width = get_game()->map.map_width;
 	minimap.minimap_height = WIDTH / 6;
 	minimap.minimap_width = WIDTH / 6;
 	minimap.scale_x = (float)minimap.minimap_width / minimap.map_width;
