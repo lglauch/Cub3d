@@ -66,7 +66,7 @@ void	display(void *param)
 	(void)param;
 	drawplayer_minimap();
 	player_movement();
-	// raycasting();
+	//raycasting();
 }
 
 int	main(int argc, char **argv)

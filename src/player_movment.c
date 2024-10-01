@@ -48,13 +48,6 @@ void	draw_line_direction(float angle_rad, float player_x, float player_y)
 
 void	check_boundaries(float *x, float *y)
 {
-	int		mapx;
-	int		mapy;
-	char	**map;
-
-	mapx = (int)*x;
-	mapy = (int)*y;
-	map = get_game()->map.map;
 	if (*y < 0)
 		*y = 0;
 	if (*x < 0)

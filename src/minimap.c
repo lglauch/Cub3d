@@ -80,11 +80,9 @@ void	drawplayer_minimap(void)
 {
 	int	player_x;
 	int	player_y;
-	int	counter;
 
 	player_x = get_game()->player.player_x;
 	player_y = get_game()->player.player_y;
-	counter = 0;
 	ft_memset(get_game()->minimap->pixels, 0,
 		(get_game()->minimap->height * get_game()->minimap->width) * 4);
 	draw_map_on_minimap();

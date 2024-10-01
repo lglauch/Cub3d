@@ -32,17 +32,24 @@ void	*ft_malloc(size_t size)
 	return (ptr);
 }
 
-t_raycasting	*getray(void)
+t_raycasting	*ray(void)
 {
 	static t_raycasting	ray;
 
 	return (&ray);
 }
 
+t_line	*line(void)
+{
+	static t_line	line;
+
+	return (&line);
+}
+
 void	ft_put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color)
 {
 	if (!image)
 		return ;
-	if (x >= 0 && y >= 0 && x < image->width && y < image->height)
+	if (x > 0 && y > 0 && x < image->width && y < image->height)
 		mlx_put_pixel(image, x, y, color);
 }

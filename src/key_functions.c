@@ -14,7 +14,7 @@
 
 void	esc_func(mlx_key_data_t key_data, void *param)
 {
-	param = NULL;
+	(void)param;
 	if (key_data.key == MLX_KEY_ESCAPE)
 	{
 		mlx_terminate(get_game()->mlx);
@@ -24,7 +24,7 @@ void	esc_func(mlx_key_data_t key_data, void *param)
 
 void	close_func(void *param)
 {
-	param = NULL;
+	(void)param;
 	mlx_terminate(get_game()->mlx);
 	exit (EXIT_SUCCESS);
 }

@@ -31,8 +31,36 @@
 
 typedef struct s_raycasting
 {
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	double	deltadistx;
+	double	deltadisty;
+	int		mapx;
+	int		mapy;
+	double	perpwalldist;
+	double	sidedistx;
+	double	sidedisty;
+	double	wall_x;
 	
 }	t_raycasting;
+
+typedef	struct s_line
+{
+	int	x;
+	int	y;
+	int	y0;
+	int	y1;
+	int	tex_x;
+	int	tex_y;
+} t_line;
+
 
 typedef struct s_player
 {
@@ -85,7 +113,8 @@ typedef struct s_cub3d_mlx
 }	t_cub3d_mlx;
 
 t_cub3d_mlx		*get_game(void);
-t_raycasting	*getray(void);
+t_raycasting	*ray(void);
+t_line			*line(void);
 
 //hooks
 void			create_key_hooks(void);
