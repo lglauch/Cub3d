@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:07:38 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/19 15:35:12 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/09 12:52:05 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ t_raycasting	*ray(void)
 	static t_raycasting	ray;
 
 	return (&ray);
+}
+
+t_texinfo	*tex(void)
+{
+	static t_texinfo	tex;
+
+	return (&tex);
 }
 
 t_line	*line(void)

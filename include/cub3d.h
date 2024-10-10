@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/19 15:38:54 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/09 12:52:55 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@
 # define SPEED 5
 # define FOV 60
 
+enum e_texture_index
+{
+	NORTH = 0,
+	SOUTH = 1,
+	EAST = 2,
+	WEST = 3
+};
+
 typedef struct s_raycasting
 {
 	double	posx;
@@ -48,8 +56,33 @@ typedef struct s_raycasting
 	double	sidedistx;
 	double	sidedisty;
 	double	wall_x;
+	int		stepx;
+	int		stepy;
+	int		side;
+	double	wall_dist;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
 	
 }	t_raycasting;
+
+typedef struct s_texinfo
+{
+	char			*north;
+	char			*south;
+	char			*west;
+	char			*east;
+	int				*floor;
+	int				*ceiling;
+	unsigned long	hex_floor;
+	unsigned long	hex_ceiling;
+	int				size;
+	int				index;
+	double			step;
+	double			pos;
+	int				x;
+	int				y;
+}	t_texinfo;
 
 typedef	struct s_line
 {
@@ -115,6 +148,7 @@ typedef struct s_cub3d_mlx
 t_cub3d_mlx		*get_game(void);
 t_raycasting	*ray(void);
 t_line			*line(void);
+t_texinfo		*tex(void);
 
 //hooks
 void			create_key_hooks(void);
@@ -126,34 +160,34 @@ void			player_movement(void);
 
 //display
 void			drawplayer_minimap(void);
-void		put_line(float dx, float dy, float player_x, float player_y);
+void			put_line(float dx, float dy, float player_x, float player_y);
 
 //helper
-void		ft_put_pixel(mlx_image_t *image, uint32_t x,
+void			ft_put_pixel(mlx_image_t *image, uint32_t x,
 				uint32_t y, uint32_t color);
-void		*ft_malloc(size_t size);
+void			*ft_malloc(size_t size);
 
 //parsing
-int			parse_map(char	*file);
+int				parse_map(char	*file);
 
 //parsing_utils
-bool		compare_any(const char *str, char *substr[], int num_str, int n);
-bool		contains_only(const char *str, const char *allowedchars);
-bool		contains_any(const char *str, const char *chars);
-char		*next_line(char *line, int fd);
-void		error_exit(char *message, char *line, int fd);
+bool			compare_any(const char *str, char *substr[], int num_str, int n);
+bool			contains_only(const char *str, const char *allowedchars);
+bool			contains_any(const char *str, const char *chars);
+char			*next_line(char *line, int fd);
+void			error_exit(char *message, char *line, int fd);
 
 //parsing_utils_two
-bool		flood_fill(char **map, int x, int y, int max_height);
-int			save_map(char *file);
-void		print_map(char **map);
-int			check_elements(void);
+bool			flood_fill(char **map, int x, int y, int max_height);
+int				save_map(char *file);
+void			print_map(char **map);
+int				check_elements(void);
 
 //parsing_utils_three
-int			save_textures(const char *line, t_map *map);
-void		save_texture(const char *line, char **texture);
-void		free_and_exit(char *message);
-void		fill_spaces(char *str, int start, int size);
+int				save_textures(const char *line, t_map *map);
+void			save_texture(const char *line, char **texture);
+void			free_and_exit(char *message);
+void			fill_spaces(char *str, int start, int size);
 void			ft_put_pixel(mlx_image_t *image, uint32_t x,
 					uint32_t y, uint32_t color);
 
@@ -162,5 +196,8 @@ void			draw_on_minimap(t_minimap *minimap, char **map);
 
 //raycasting
 void			raycasting(void);
+
+//render
+void    		update_texture(int x);
 
 #endif
