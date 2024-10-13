@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/09 12:52:55 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/12 15:13:25 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct s_texinfo
 	double			pos;
 	int				x;
 	int				y;
+	int				**textures;
+	int				**texture_pixels;
 }	t_texinfo;
 
 typedef	struct s_line
@@ -166,6 +168,9 @@ void			put_line(float dx, float dy, float player_x, float player_y);
 void			ft_put_pixel(mlx_image_t *image, uint32_t x,
 				uint32_t y, uint32_t color);
 void			*ft_malloc(size_t size);
+
+//helper2
+void 			init_textures(t_texinfo *tex_info);
 
 //parsing
 int				parse_map(char	*file);

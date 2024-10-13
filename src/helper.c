@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:07:38 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/09 12:52:05 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/12 15:14:58 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_raycasting	*ray(void)
 t_texinfo	*tex(void)
 {
 	static t_texinfo	tex;
-
+	
 	return (&tex);
 }
 
