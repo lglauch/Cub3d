@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/12 14:56:09 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/13 15:35:43 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,14 @@ int	check_arg(char **argv, int argc)
 	return (EXIT_SUCCESS);
 }
 
-void	display(void *param)
+void render(void *param)
 {
 	(void)param;
-	drawplayer_minimap();
-	raycasting();
-	player_movement();
+    // init_textures();
+    drawplayer_minimap();
+    // raycasting();
+    player_movement();
+    render_frame();
 }
 
 int	main(int argc, char **argv)
@@ -77,7 +79,7 @@ int	main(int argc, char **argv)
   	if (parse_map(argv[1]) || save_map(argv[1])) //|| check_elements())
 		return (FAIL);
 	create_key_hooks();
-	mlx_loop_hook(get_game()->mlx, &display, get_game()->mlx);
+	mlx_loop_hook(get_game()->mlx, &render, get_game()->mlx);
 	mlx_loop(get_game()->mlx);
 	mlx_terminate(get_game()->mlx);
 	return (EXIT_SUCCESS);

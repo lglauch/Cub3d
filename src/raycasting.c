@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:06:45 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/12 14:47:28 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/13 15:39:00 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,7 @@ void	raycasting(void)
 		do_dda_calc();
 		dda_algo();
 		calculate_line_height();
-		printf("Test\n");
 		update_texture(x);
-		printf("Test1\n");
 		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/12 15:13:25 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/13 14:55:11 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void			ft_put_pixel(mlx_image_t *image, uint32_t x,
 void			*ft_malloc(size_t size);
 
 //helper2
-void 			init_textures(t_texinfo *tex_info);
+void 			init_textures(void);
 
 //parsing
 int				parse_map(char	*file);
@@ -202,7 +202,10 @@ void			draw_on_minimap(t_minimap *minimap, char **map);
 //raycasting
 void			raycasting(void);
 
-//render
+//textures
 void    		update_texture(int x);
+
+//render
+void    render_frame(void);
 
 #endif
