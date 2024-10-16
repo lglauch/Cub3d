@@ -3,52 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:06:45 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/13 15:39:00 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/16 15:23:22 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-// void draw_line(float x0, float y0, float x1, float y1) {
-//     int steps;
-//     float stepX, stepY;
-//     float x, y;
-//     int i;
-
-//     // Calculate the difference in both directions
-//     float dx = x1 - x0;
-//     float dy = y1 - y0;
-
-//     // Determine the number of steps to take
-//     steps = fmax(fabs(dx), fabs(dy));
-//     stepX = dx / (float)steps;
-//     stepY = dy / (float)steps;
-
-//     x = x0;
-//     y = y0;
-//     for (i = 0; i <= steps; i++) {
-//         ft_put_pixel(get_game()->minimap, round(x), round(y), 0xFFFFFF);
-
-//         x += stepX;
-//         y += stepY;
-//     }
-// }
-
 //https://hackmd.io/@nszl/H1LXByIE2#player-direction-vector-and-camera-vector
 //https://github.com/mcombeau/cub3D/blob/main/sources/render/raycasting.c#L95
-
-void	init_values(void)
-{
-	ray()->posx = get_game()->player.player_x;
-	ray()->posy = get_game()->player.player_y;
-	ray()->dirx = -1; //initial direction vector, mabye needs change to get north west south east
-	ray()->diry = 0; //same
-	ray()->planex = 0;
-	ray()->planey = 0.66;
-}
 
 void	cast_ray(int x)
 {
@@ -76,7 +41,8 @@ void	do_dda_calc(void)
 	else
 	{
 		ray()->stepx = 1;
-		ray()->sidedistx = (ray()->mapx + 1.0 - ray()->posx) * ray()->deltadistx;
+		ray()->sidedistx = (ray()->mapx + 1.0 - ray()->posx) \
+		* ray()->deltadistx;
 	}
 	if (ray()->raydiry < 0)
 	{
@@ -86,7 +52,8 @@ void	do_dda_calc(void)
 	else
 	{
 		ray()->stepy = 1;
-		ray()->sidedisty = (ray()->mapy + 1.0 - ray()->posy) * ray()->deltadisty;
+		ray()->sidedisty = (ray()->mapy + 1.0 - ray()->posy) \
+		* ray()->deltadisty;
 	}
 }
 
@@ -122,7 +89,7 @@ void	dda_algo(void)
 	// 	ray()->perpwalldist = (ray()->sidedisty - ray()->deltadisty);
 }
 
-void	calculate_line_height()
+void	calculate_line_height(void)
 {
 	if (ray()->side == 0)
 		ray()->wall_dist = (ray()->sidedistx - ray()->deltadistx);
@@ -136,9 +103,11 @@ void	calculate_line_height()
 	if (ray()->draw_end >= HEIGHT)
 		ray()->draw_end = HEIGHT - 1;
 	if (ray()->side == 0)
-		ray()->wall_x = get_game()->player.player_y + ray()->wall_dist * ray()->diry;
+		ray()->wall_x = get_game()->player.player_y + \
+		ray()->wall_dist * ray()->diry;
 	else
-		ray()->wall_x = get_game()->player.player_x + ray()->wall_dist * ray()->dirx;
+		ray()->wall_x = get_game()->player.player_x + \
+		ray()->wall_dist * ray()->dirx;
 	ray()->wall_x -= floor(ray()->wall_x);
 }
 

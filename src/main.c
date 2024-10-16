@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/16 15:08:10 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/16 15:14:53 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char **argv)
 	if (check_arg(argv, argc))
 		return (FAIL);
 	init();
-  	if (parse_map(argv[1]) || save_map(argv[1])) //|| check_elements())
+  	if (parse_map(argv[1]) || save_map(argv[1]) || check_elements())
 		return (FAIL);
 	printf("hello");
 	create_key_hooks();
