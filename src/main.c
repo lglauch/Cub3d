@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/13 15:35:43 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/16 15:05:24 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int argc, char **argv)
 	init();
   	if (parse_map(argv[1]) || save_map(argv[1])) //|| check_elements())
 		return (FAIL);
+	printf("hello");
 	create_key_hooks();
 	mlx_loop_hook(get_game()->mlx, &render, get_game()->mlx);
 	mlx_loop(get_game()->mlx);
