@@ -57,6 +57,7 @@ all: clone libmlx $(NAME)
 
 clone:
 	@git clone https://github.com/codam-coding-college/MLX42.git || true
+	@cd MLX42 && git fetch --tags && git checkout v2.3.4
 
 libmlx: clone
 	@cd $(LIBMLX) && cmake -B build && cmake --build build -j4
