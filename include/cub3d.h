@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/16 15:24:00 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/10/17 00:26:29 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define SUCCESS 0
 # define SPEED 5
 # define FOV 60
+# define M_PI 3.14159265358979323846
 
 enum e_texture_index
 {
@@ -82,7 +83,7 @@ typedef struct s_texinfo
 	double			pos;
 	int				x;
 	int				y;
-	int				**textures;
+	mlx_texture_t				**textures;
 	int				**texture_pixels;
 }	t_texinfo;
 
@@ -170,7 +171,9 @@ void			ft_put_pixel(mlx_image_t *image, uint32_t x,
 void			*ft_malloc(size_t size);
 
 //helper2
-void 			init_textures(void);
+mlx_texture_t 			**init_textures(void);
+void					set_angle(void);
+void					set_facing_direction(char direction);
 
 //parsing
 int				parse_map(char	*file);

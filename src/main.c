@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/16 15:14:53 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/10/16 23:07:16 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	init(void)
 		ft_error();
 	get_game()->player.player_x = -1;
 	get_game()->player.player_y = -1;
-	get_game()->player.player_a = 90;
 }
 
 int	check_arg(char **argv, int argc)
@@ -64,11 +63,10 @@ int	check_arg(char **argv, int argc)
 void render(void *param)
 {
 	(void)param;
-    // init_textures();
     drawplayer_minimap();
-    // raycasting();
+    raycasting();
     player_movement();
-    render_frame();
+    // render_frame();
 }
 
 int	main(int argc, char **argv)
@@ -78,7 +76,9 @@ int	main(int argc, char **argv)
 	init();
   	if (parse_map(argv[1]) || save_map(argv[1]) || check_elements())
 		return (FAIL);
-	printf("hello");
+	set_facing_direction(get_game()->player.start_dir);
+	set_angle();
+	tex()->textures = init_textures();
 	create_key_hooks();
 	mlx_loop_hook(get_game()->mlx, &render, get_game()->mlx);
 	mlx_loop(get_game()->mlx);

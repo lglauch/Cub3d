@@ -1,8 +1,8 @@
 
-NO ./textures/test/north.xpm
-SO ./textures/test/south.xpm
-WE ./textures/test/west.xpm
-EA ./textures/test/east.xpm
+NO ./textures/planks.png
+SO ./textures/stonewall.png
+WE ./textures/stonewall1.png
+EA ./textures/wall.png
 
 F 220,100,0
 C 225,30,0
