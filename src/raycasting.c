@@ -6,54 +6,20 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:06:45 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/13 15:39:00 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/17 00:42:40 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-// void draw_line(float x0, float y0, float x1, float y1) {
-//     int steps;
-//     float stepX, stepY;
-//     float x, y;
-//     int i;
-
-//     // Calculate the difference in both directions
-//     float dx = x1 - x0;
-//     float dy = y1 - y0;
-
-//     // Determine the number of steps to take
-//     steps = fmax(fabs(dx), fabs(dy));
-//     stepX = dx / (float)steps;
-//     stepY = dy / (float)steps;
-
-//     x = x0;
-//     y = y0;
-//     for (i = 0; i <= steps; i++) {
-//         ft_put_pixel(get_game()->minimap, round(x), round(y), 0xFFFFFF);
-
-//         x += stepX;
-//         y += stepY;
-//     }
-// }
-
 //https://hackmd.io/@nszl/H1LXByIE2#player-direction-vector-and-camera-vector
 //https://github.com/mcombeau/cub3D/blob/main/sources/render/raycasting.c#L95
-
-void	init_values(void)
-{
-	ray()->posx = get_game()->player.player_x;
-	ray()->posy = get_game()->player.player_y;
-	ray()->dirx = -1; //initial direction vector, mabye needs change to get north west south east
-	ray()->diry = 0; //same
-	ray()->planex = 0;
-	ray()->planey = 0.66;
-}
 
 void	cast_ray(int x)
 {
 	init_values();
 	ray()->camerax = 2 * x / (double)WIDTH - 1;
+	printf("Before calculation: dirx=%f, diry=%f, planex=%f, planey=%f, camerax=%f\n", ray()->dirx, ray()->diry, ray()->planex, ray()->planey, ray()->camerax);
 	ray()->raydirx = ray()->dirx + ray()->planex * ray()->camerax;
 	ray()->raydiry = ray()->diry + ray()->planey * ray()->camerax;
 	ray()->deltadistx = fabs(1 / ray()->raydirx);
@@ -64,6 +30,7 @@ void	cast_ray(int x)
 	// 	ray()->deltadisty = 1e30;
 	ray()->mapx = (int)ray()->posx;
 	ray()->mapy = (int)ray()->posy;
+	printf("cast_ray: x=%d, camerax=%f, raydirx=%f, raydiry=%f\n", x, ray()->camerax, ray()->raydirx, ray()->raydiry);
 }
 
 void	do_dda_calc(void)
@@ -76,7 +43,8 @@ void	do_dda_calc(void)
 	else
 	{
 		ray()->stepx = 1;
-		ray()->sidedistx = (ray()->mapx + 1.0 - ray()->posx) * ray()->deltadistx;
+		ray()->sidedistx = (ray()->mapx + 1.0 - ray()->posx) \
+		* ray()->deltadistx;
 	}
 	if (ray()->raydiry < 0)
 	{
@@ -86,7 +54,8 @@ void	do_dda_calc(void)
 	else
 	{
 		ray()->stepy = 1;
-		ray()->sidedisty = (ray()->mapy + 1.0 - ray()->posy) * ray()->deltadisty;
+		ray()->sidedisty = (ray()->mapy + 1.0 - ray()->posy) \
+		* ray()->deltadisty;
 	}
 }
 
@@ -116,13 +85,28 @@ void	dda_algo(void)
 		else if (get_game()->map.map[ray()->mapy][ray()->mapx] > '0')
 			hit = 1;
 	}
-	// if (ray()->side == 0)
-	// 	ray()->perpwalldist = (ray()->sidedistx - ray()->deltadistx);
-	// else
-	// 	ray()->perpwalldist = (ray()->sidedisty - ray()->deltadisty);
+	if (ray()->side == 0)
+    {
+        if (ray()->raydirx > 0)
+            tex()->index = EAST;
+        else
+            tex()->index = WEST;
+    }
+    else
+    {
+        if (ray()->raydiry > 0)
+            tex()->index = SOUTH;
+        else
+            tex()->index = NORTH;
+    }
+	if (ray()->side == 0)
+        ray()->perpwalldist = (ray()->mapx - ray()->posx + (1 - ray()->stepx) / 2) / ray()->raydirx;
+    else
+        ray()->perpwalldist = (ray()->mapy - ray()->posy + (1 - ray()->stepy) / 2) / ray()->raydiry;
+    ray()->line_height = (int)(HEIGHT / ray()->perpwalldist);
 }
 
-void	calculate_line_height()
+void	calculate_line_height(void)
 {
 	if (ray()->side == 0)
 		ray()->wall_dist = (ray()->sidedistx - ray()->deltadistx);
@@ -136,9 +120,11 @@ void	calculate_line_height()
 	if (ray()->draw_end >= HEIGHT)
 		ray()->draw_end = HEIGHT - 1;
 	if (ray()->side == 0)
-		ray()->wall_x = get_game()->player.player_y + ray()->wall_dist * ray()->diry;
+		ray()->wall_x = get_game()->player.player_y + \
+		ray()->wall_dist * ray()->diry;
 	else
-		ray()->wall_x = get_game()->player.player_x + ray()->wall_dist * ray()->dirx;
+		ray()->wall_x = get_game()->player.player_x + \
+		ray()->wall_dist * ray()->dirx;
 	ray()->wall_x -= floor(ray()->wall_x);
 }
 
