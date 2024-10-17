@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/16 23:07:16 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/17 20:56:32 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void render(void *param)
 {
 	(void)param;
     drawplayer_minimap();
+    render_frame();
     raycasting();
     player_movement();
-    // render_frame();
 }
 
 int	main(int argc, char **argv)

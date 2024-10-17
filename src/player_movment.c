@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:40:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/17 00:33:29 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/17 22:00:36 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,9 @@ int is_wall(double x, double y)
     return (get_game()->map.map[map_y][map_x] == '1');
 }
 
-// Function to move the player and update direction and plane vectors
 void move_player(void)
 {
-    double move_speed = 0.1; // Adjust the speed as needed
+    double move_speed = 0.1;
     double new_x = get_game()->player.player_x;
     double new_y = get_game()->player.player_y;
 
@@ -135,7 +134,9 @@ void move_player(void)
         new_x += cos(get_game()->player.player_a * M_PI / 180.0 + M_PI_2) * move_speed;
         new_y += sin(get_game()->player.player_a * M_PI / 180.0 + M_PI_2) * move_speed;
     }
-
+    printf("New X: %f, New Y: %f\n", new_x, new_y);
+    printf("Is Wall (new_x, player_y): %d\n", is_wall(new_x, get_game()->player.player_y));
+    printf("Is Wall (player_x, new_y): %d\n", is_wall(get_game()->player.player_x, new_y));
     // Check for collisions
     if (!is_wall(new_x, get_game()->player.player_y))
         get_game()->player.player_x = new_x;
@@ -148,7 +149,7 @@ void	player_movement(void)
 {
 	void		*param;
 	float		angle_rad;
-	const float	move_speed = 0.1;
+	const float	move_speed = 0.05;
 	const float	turn_speed = 5;
 
 	param = get_game()->mlx;
@@ -168,6 +169,6 @@ void	player_movement(void)
 		if (get_game()->player.player_a >= 360)
 			get_game()->player.player_a -= 360;
 	}
-	draw_line_direction(angle_rad,
-		get_game()->player.player_x, get_game()->player.player_y);
+	// draw_line_direction(angle_rad,
+	// 	get_game()->player.player_x, get_game()->player.player_y);
 }

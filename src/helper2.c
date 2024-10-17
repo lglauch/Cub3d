@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 15:12:03 by leo               #+#    #+#             */
-/*   Updated: 2024/10/16 23:54:39 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/17 22:04:31 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ mlx_texture_t **init_textures(void)
 
 void	set_angle(void)
 {
-	if (get_game()->player.start_dir == 'N')
+	if (get_game()->player.start_dir == 'S')
         get_game()->player.player_a = 90;
-    else if (get_game()->player.start_dir == 'S')
+    else if (get_game()->player.start_dir == 'N')
         get_game()->player.player_a = 270;
     else if (get_game()->player.start_dir == 'E')
         get_game()->player.player_a = 0;
