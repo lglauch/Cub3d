@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/17 20:56:32 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/18 13:20:50 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	main(int argc, char **argv)
 	init();
   	if (parse_map(argv[1]) || save_map(argv[1]) || check_elements())
 		return (FAIL);
+	// printf("color: %d, color: %d", get_game()->map.c_color, get_game()->map.f_color);
+	// exit (1);
 	set_facing_direction(get_game()->player.start_dir);
 	set_angle();
 	tex()->textures = init_textures();

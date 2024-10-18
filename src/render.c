@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:20:46 by leo               #+#    #+#             */
-/*   Updated: 2024/10/17 20:58:05 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/18 13:35:50 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void    render_frame(void)
         x = 0;
         while (x < WIDTH)
         {
-            ft_put_pixel(get_game()->img, x, y, 0x87CEEB);
+            ft_put_pixel(get_game()->img, x, y, get_game()->map.c_color);
             x++;
         }
         y++;
@@ -35,7 +35,7 @@ void    render_frame(void)
         x = 0;
         while (x < WIDTH)
         {
-            ft_put_pixel(get_game()->img, x, y, 0x2F4F4F);
+            ft_put_pixel(get_game()->img, x, y, get_game()->map.f_color);
             x++;
         }
         y++;
