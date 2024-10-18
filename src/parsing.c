@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:49:04 by bebuber           #+#    #+#             */
-/*   Updated: 2024/10/18 16:44:14 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/18 16:53:44 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,27 @@
 void	save_colors(const char *line, t_map *map)
 {
 	int		i;
-	int		color;
 	int		value;
+	int		rgb[3];
+	int		flag;
 
 	i = 2;
-	color = 0;
+	flag = 0;
 	value = 0;
 	while (line[i] == ' ')
 		i++;
-	while (line[i] && color < 3)
+	while (line[i] && flag < 3)
 	{
 		if (ft_isdigit(line[i]))
 			value = value * 10 + (line[i] - '0');
-		else if (line[i] == ',' || line[i + 1] == '\n')
-		{
-			color = (color << 8) + value;
-			value = 0;
-		}
+		else if (line[i] == ',' || line[i] == '\n')
+			rgb[flag++] = value;
 		i++;
 	}
 	if (*line == 'F')
-		map->f_color = color;
+		map->f_color = (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255);
 	else if (*line == 'C')
-		map->c_color = color;
+		map->c_color = (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255);
 }
 
 int	save_player_loc(char *line, int i, int n)
