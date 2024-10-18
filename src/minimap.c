@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 13:49:45 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/17 21:46:32 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/18 12:59:46 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	draw_map_on_minimap(void)
 {
 	t_minimap	minimap;
-	// char		**map;
-	char **map = get_game()->map.map;
+	char		**map;
+
+	map = get_game()->map.map;
 	get_game()->map.map = map;
 	minimap = get_game()->minimap_var;
 	minimap.sx = 0;
@@ -51,11 +52,8 @@ void	draw_minimap_border(void)
 	}
 }
 
-void	draw_player_form_minimap(int player_x, int player_y, t_minimap *minimap)
+void	player_form(int scaled_x, int scaled_y)
 {
-	int scaled_x = (int)(player_x * minimap->scale_x);
-    int scaled_y = (int)(player_y * minimap->scale_y);
-	
 	ft_put_pixel(get_game()->minimap, scaled_x, scaled_y, 0xFF0000FF);
 	ft_put_pixel(get_game()->minimap, scaled_x - 2, scaled_y - 2, 0xFF0000FF);
 	ft_put_pixel(get_game()->minimap, scaled_x - 1, scaled_y - 2, 0xFF0000FF);
@@ -79,20 +77,30 @@ void	draw_player_form_minimap(int player_x, int player_y, t_minimap *minimap)
 	ft_put_pixel(get_game()->minimap, scaled_x + 2, scaled_y + 2, 0xFF0000FF);
 }
 
+void	draw_player_form_minimap(int player_x, int player_y, t_minimap *minimap)
+{
+	int	scaled_x;
+	int	scaled_y;
+
+	scaled_x = (int)(player_x * minimap->scale_x);
+	scaled_y = (int)(player_y * minimap->scale_y);
+	player_form(scaled_x, scaled_y);
+}
+
 void	drawplayer_minimap(void)
 {
-	int	player_x;
-	int	player_y;
+	int			player_x;
+	int			player_y;
 	t_minimap	minimap;
 
 	player_x = get_game()->player.player_x;
 	player_y = get_game()->player.player_y;
 	minimap.map_height = get_game()->map.map_height;
-    minimap.map_width = get_game()->map.map_width;
-    minimap.minimap_height = WIDTH / 6;
-    minimap.minimap_width = WIDTH / 6;
-    minimap.scale_x = (float)minimap.minimap_width / minimap.map_width;
-    minimap.scale_y = (float)minimap.minimap_height / minimap.map_height;
+	minimap.map_width = get_game()->map.map_width;
+	minimap.minimap_height = WIDTH / 6;
+	minimap.minimap_width = WIDTH / 6;
+	minimap.scale_x = (float)minimap.minimap_width / minimap.map_width;
+	minimap.scale_y = (float)minimap.minimap_height / minimap.map_height;
 	ft_memset(get_game()->minimap->pixels, 0,
 		(get_game()->minimap->height * get_game()->minimap->width) * 4);
 	draw_map_on_minimap();

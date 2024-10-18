@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/17 20:56:32 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/18 16:38:15 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ int	check_arg(char **argv, int argc)
 	return (EXIT_SUCCESS);
 }
 
-void render(void *param)
+void	render(void *param)
 {
 	(void)param;
-    drawplayer_minimap();
-    render_frame();
-    raycasting();
-    player_movement();
+	drawplayer_minimap();
+	render_frame();
+	raycasting();
+	player_movement();
 }
 
 int	main(int argc, char **argv)
@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 	if (check_arg(argv, argc))
 		return (FAIL);
 	init();
-  	if (parse_map(argv[1]) || save_map(argv[1]) || check_elements())
+	if (parse_map(argv[1]) || save_map(argv[1]) || check_elements())
 		return (FAIL);
 	set_facing_direction(get_game()->player.start_dir);
 	set_angle();

@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:42:42 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/19 16:04:16 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/18 16:43:46 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,6 @@ void	draw_minimap_tile(t_minimap *minimap, int x, int y)
 	}
 }
 
-// void	clear_minimap_background(t_minimap *minimap, int clear_color)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	x = 0;
-// 	y = 0;
-// 	while (y < minimap->minimap_height * minimap->scale_y)
-// 	{
-// 		while (x < minimap->minimap_width * minimap->scale_x)
-// 		{
-// 			ft_put_pixel (get_game()->minimap, x, y, clear_color);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
-
 void	draw_on_minimap(t_minimap *minimap, char **map)
 {
 	int	x;
@@ -75,7 +57,6 @@ void	draw_on_minimap(t_minimap *minimap, char **map)
 
 	x = 0;
 	y = 0;
-	// clear_minimap_background(minimap, 0x202020);
 	while (y < minimap->map_height)
 	{
 		x = 0;

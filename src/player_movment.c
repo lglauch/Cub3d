@@ -3,172 +3,114 @@
 /*                                                        :::      ::::::::   */
 /*   player_movment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:40:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/17 22:00:36 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/18 16:45:00 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	put_line(float dx, float dy, float player_x, float player_y)
+void	player_wasd(float angle_rad, float move_speed, float *x, float *y)
 {
-	int		steps;
-	float	stepx;
-	float	stepy;
-	int		i;
+	void	*param;
 
-	steps = fmax((int)fabs(dx), fabs(dy));
-	if (steps == 0)
-		return ;
-	stepx = dx / steps;
-	stepy = dy / steps;
-	i = 0;
-	while (i <= steps)
+	param = get_game()->mlx;
+	if (mlx_is_key_down(param, MLX_KEY_W))
 	{
-		ft_put_pixel(get_game()->minimap, player_x, player_y, 0xFFFFFF);
-		player_x += stepx;
-		player_y += stepy;
-		i++;
+		*x += cos(angle_rad) * move_speed;
+		*y += sin(angle_rad) * move_speed;
 	}
+	if (mlx_is_key_down(param, MLX_KEY_S))
+	{
+		*x -= cos(angle_rad) * move_speed;
+		*y -= sin(angle_rad) * move_speed;
+	}
+	if (mlx_is_key_down(param, MLX_KEY_A))
+	{
+		*x -= cos(angle_rad + M_PI_2) * move_speed;
+		*y -= sin(angle_rad + M_PI_2) * move_speed;
+	}
+	if (mlx_is_key_down(param, MLX_KEY_D))
+	{
+		*x += cos(angle_rad + M_PI_2) * move_speed;
+		*y += sin(angle_rad + M_PI_2) * move_speed;
+	}
+	check_boundaries(x, y);
 }
 
-void	draw_line_direction(float angle_rad, float player_x, float player_y)
+void	update_player_direction(float player_a)
 {
-	float	line_length;
-	float	dx;
-	float	dy;
+	float	angle_rad;
 
-	line_length = 20;
-	dx = player_x + cos(angle_rad) * line_length - player_x;
-	dy = player_y + sin(angle_rad) * line_length - player_y;
-	put_line(dx, dy, player_x, player_y);
-}
-
-void	check_boundaries(float *x, float *y)
-{
-	if (*y < 0)
-		*y = 0;
-	if (*x < 0)
-		*x = 0;
-	if (*y > get_game()->minimap->height)
-		*y = get_game()->minimap->height;
-	if (*x > get_game()->minimap->width)
-		*x = get_game()->minimap->width;
-}
-
-void player_wasd(float angle_rad, float move_speed, float *x, float *y)
-{
-    void *param;
-
-    param = get_game()->mlx;
-    if (mlx_is_key_down(param, MLX_KEY_W))
-    {
-        *x += cos(angle_rad) * move_speed;
-        *y += sin(angle_rad) * move_speed;
-    }
-    if (mlx_is_key_down(param, MLX_KEY_S))
-    {
-        *x -= cos(angle_rad) * move_speed;
-        *y -= sin(angle_rad) * move_speed;
-    }
-    if (mlx_is_key_down(param, MLX_KEY_A))
-    {
-        *x -= cos(angle_rad + M_PI_2) * move_speed;
-        *y -= sin(angle_rad + M_PI_2) * move_speed;
-    }
-    if (mlx_is_key_down(param, MLX_KEY_D))
-    {
-        *x += cos(angle_rad + M_PI_2) * move_speed;
-        *y += sin(angle_rad + M_PI_2) * move_speed;
-    }
-    check_boundaries(x, y);
-}
-
-void update_player_direction(float player_a)
-{
-    float angle_rad;
-	
 	angle_rad = player_a * (M_PI / 180);
-    ray()->dirx = cos(angle_rad);
-    ray()->diry = sin(angle_rad);
-    ray()->planex = -0.66 * sin(angle_rad);
-    ray()->planey = 0.66 * cos(angle_rad);
+	ray()->dirx = cos(angle_rad);
+	ray()->diry = sin(angle_rad);
+	ray()->planex = -0.66 * sin(angle_rad);
+	ray()->planey = 0.66 * cos(angle_rad);
 }
 
-int is_wall(double x, double y)
+int	is_wall(double x, double y)
 {
-    int map_x = (int)x;
-    int map_y = (int)y;
-	if (map_x < 0 || map_x >= get_game()->map.map_width || map_y < 0 || map_y >= get_game()->map.map_height)
-    {
-        return 1; // Treat out-of-bounds as a wall
-    }
-    return (get_game()->map.map[map_y][map_x] == '1');
+	int	map_x;
+	int	map_y;
+
+	map_x = (int)x;
+	map_y = (int)y;
+	if (map_x < 0 || map_x >= get_game()->map.map_width || map_y < 0
+		|| map_y >= get_game()->map.map_height)
+	{
+		return (1);
+	}
+	return (get_game()->map.map[map_y][map_x] == '1');
 }
 
-void move_player(void)
+void	move_player(double move_speed)
 {
-    double move_speed = 0.1;
-    double new_x = get_game()->player.player_x;
-    double new_y = get_game()->player.player_y;
+	double	new_x;
+	double	new_y;
 
-    if (mlx_is_key_down(get_game()->mlx, MLX_KEY_W))
-    {
-        new_x += cos(get_game()->player.player_a * M_PI / 180.0) * move_speed;
-        new_y += sin(get_game()->player.player_a * M_PI / 180.0) * move_speed;
-    }
-    if (mlx_is_key_down(get_game()->mlx, MLX_KEY_S))
-    {
-        new_x -= cos(get_game()->player.player_a * M_PI / 180.0) * move_speed;
-        new_y -= sin(get_game()->player.player_a * M_PI / 180.0) * move_speed;
-    }
-	if (mlx_is_key_down(get_game()->mlx, MLX_KEY_A))
-    {
-        new_x -= cos(get_game()->player.player_a * M_PI / 180.0 + M_PI_2) * move_speed;
-        new_y -= sin(get_game()->player.player_a * M_PI / 180.0 + M_PI_2) * move_speed;
-    }
-    if (mlx_is_key_down(get_game()->mlx, MLX_KEY_D))
-    {
-        new_x += cos(get_game()->player.player_a * M_PI / 180.0 + M_PI_2) * move_speed;
-        new_y += sin(get_game()->player.player_a * M_PI / 180.0 + M_PI_2) * move_speed;
-    }
-    printf("New X: %f, New Y: %f\n", new_x, new_y);
-    printf("Is Wall (new_x, player_y): %d\n", is_wall(new_x, get_game()->player.player_y));
-    printf("Is Wall (player_x, new_y): %d\n", is_wall(get_game()->player.player_x, new_y));
-    // Check for collisions
-    if (!is_wall(new_x, get_game()->player.player_y))
-        get_game()->player.player_x = new_x;
-    if (!is_wall(get_game()->player.player_x, new_y))
-        get_game()->player.player_y = new_y;
-    update_player_direction(get_game()->player.player_a);
+	new_x = get_game()->player.player_x;
+	new_y = get_game()->player.player_y;
+	if (mlx_is_key_down(get_game()->mlx, MLX_KEY_W))
+	{
+		new_x += cos(get_game()->player.player_a * M_PI / 180.0) * move_speed;
+		new_y += sin(get_game()->player.player_a * M_PI / 180.0) * move_speed;
+	}
+	if (mlx_is_key_down(get_game()->mlx, MLX_KEY_S))
+	{
+		new_x -= cos(get_game()->player.player_a * M_PI / 180.0) * move_speed;
+		new_y -= sin(get_game()->player.player_a * M_PI / 180.0) * move_speed;
+	}
+	move_player_a_d(move_speed, new_x, new_y);
+	if (!is_wall(new_x, get_game()->player.player_y))
+		get_game()->player.player_x = new_x;
+	if (!is_wall(get_game()->player.player_x, new_y))
+		get_game()->player.player_y = new_y;
+	update_player_direction(get_game()->player.player_a);
 }
 
 void	player_movement(void)
 {
-	void		*param;
 	float		angle_rad;
-	const float	move_speed = 0.05;
+	const float	move_speed = 0.1;
 	const float	turn_speed = 5;
 
-	param = get_game()->mlx;
-	move_player();
+	move_player(move_speed);
 	angle_rad = get_game()->player.player_a * (M_PI / 180);
 	player_wasd(angle_rad, move_speed, &get_game()->player.player_x,
 		&get_game()->player.player_y);
-	if (mlx_is_key_down(param, MLX_KEY_LEFT))
+	if (mlx_is_key_down(get_game()->mlx, MLX_KEY_LEFT))
 	{
 		get_game()->player.player_a -= turn_speed;
 		if (get_game()->player.player_a < 0)
 			get_game()->player.player_a += 360;
 	}
-	if (mlx_is_key_down(param, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(get_game()->mlx, MLX_KEY_RIGHT))
 	{
 		get_game()->player.player_a += turn_speed;
 		if (get_game()->player.player_a >= 360)
 			get_game()->player.player_a -= 360;
 	}
-	// draw_line_direction(angle_rad,
-	// 	get_game()->player.player_x, get_game()->player.player_y);
 }

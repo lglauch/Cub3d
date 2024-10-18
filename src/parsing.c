@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:49:04 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/19 13:16:25 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/10/18 16:44:14 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	check_map_helper(char *line, t_map *map, int fd, int n)
 		if (ft_strchr("NSEW", line[i]))
 		{
 			if (save_player_loc(line, i, n))
-				error_exit("Error:Invalid map: only one player is allowed", line, fd);
+				error_exit("Error:Invalid map: only one player is allowed",
+					line, fd);
 		}
 		else if (!ft_strchr("01 \n", line[i]))
 			error_exit("Error: Invalid map:", line, fd);
@@ -87,7 +88,8 @@ int	check_map(char	*line, t_map *map, int fd)
 		line = next_line(line, fd);
 	}
 	if (line != NULL)
-		error_exit("Error: Invalid map: map content should be the last", line, fd);
+		error_exit("Error: Invalid map: map content should be the last",
+			line, fd);
 	map->map_height = n;
 	return (SUCCESS);
 }

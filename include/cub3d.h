@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/17 21:03:01 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/18 16:31:31 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -63,7 +62,6 @@ typedef struct s_raycasting
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
-	
 }	t_raycasting;
 
 typedef struct s_texinfo
@@ -82,11 +80,11 @@ typedef struct s_texinfo
 	double			pos;
 	int				x;
 	int				y;
-	mlx_texture_t				**textures;
+	mlx_texture_t	**textures;
 	int				**texture_pixels;
 }	t_texinfo;
 
-typedef	struct s_line
+typedef struct s_line
 {
 	int	x;
 	int	y;
@@ -94,14 +92,13 @@ typedef	struct s_line
 	int	y1;
 	int	tex_x;
 	int	tex_y;
-} t_line;
-
+}	t_line;
 
 typedef struct s_player
 {
 	float	player_x;
 	float	player_y;
- 	char	start_dir;
+	char	start_dir;
 	float	player_dx;
 	float	player_dy;
 	float	player_a;
@@ -110,15 +107,15 @@ typedef struct s_player
 typedef struct s_map
 {
 	char	**map;
- 	char	*north;
+	char	*north;
 	char	*south;
 	char	*west;
 	char	*east;
 	int		wall;
 	int		floor;
- 	int		map_height;
+	int		map_height;
 	int		map_width;
- 	int		c_color;
+	int		c_color;
 	int		f_color;
 }	t_map;
 
@@ -158,27 +155,31 @@ void			create_key_hooks(void);
 //key funcions
 void			esc_func(mlx_key_data_t key_data, void *param);
 void			close_func(void *param);
+
+//player_movment
 void			player_movement(void);
+void			move_player_a_d(double move_speed, double new_x, double new_y);
+void			check_boundaries(float *x, float *y);
 
 //display
 void			drawplayer_minimap(void);
-void			put_line(float dx, float dy, float player_x, float player_y);
 
 //helper
 void			ft_put_pixel(mlx_image_t *image, uint32_t x,
-				uint32_t y, uint32_t color);
+					uint32_t y, uint32_t color);
 void			*ft_malloc(size_t size);
 
 //helper2
-mlx_texture_t 			**init_textures(void);
-void					set_angle(void);
-void					set_facing_direction(char direction);
+mlx_texture_t	**init_textures(void);
+void			set_angle(void);
+void			set_facing_direction(char direction);
 
 //parsing
 int				parse_map(char	*file);
 
 //parsing_utils
-bool			compare_any(const char *str, char *substr[], int num_str, int n);
+bool			compare_any(const char *str, char *substr[],
+					int num_str, int n);
 bool			contains_only(const char *str, const char *allowedchars);
 bool			contains_any(const char *str, const char *chars);
 char			*next_line(char *line, int fd);
@@ -205,12 +206,9 @@ void			draw_on_minimap(t_minimap *minimap, char **map);
 void			raycasting(void);
 
 //textures
-void    		update_texture(int x);
+void			update_texture(int x);
 
 //render
-void    render_frame(void);
-
-// helper2
-void	init_values(void);
+void			render_frame(void);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 12:06:45 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/17 21:34:40 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/18 16:49:25 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,51 +58,50 @@ void	dda_algo(void)
 			ray()->mapy += ray()->stepy;
 			ray()->side = 1;
 		}
-		if (ray()->mapy < 0 || ray()->mapx < 0 || ray()->mapy >= get_game()->map.map_height || ray()->mapx >= get_game()->map.map_width)
-            break;
-        if (get_game()->map.map[ray()->mapy][ray()->mapx] == '1')
-            hit = 1;
+		if (ray()->mapy < 0 || ray()->mapx < 0 || ray()->mapy
+			>= get_game()->map.map_height
+			|| ray()->mapx >= get_game()->map.map_width)
+			break ;
+		if (get_game()->map.map[ray()->mapy][ray()->mapx] == '1')
+			hit = 1;
 	}
 	if (ray()->side == 0)
-    {
-        if (ray()->raydirx > 0)
-            tex()->index = EAST;
-        else
-            tex()->index = WEST;
-    }
-    else
-    {
-        if (ray()->raydiry > 0)
-            tex()->index = SOUTH;
-        else
-            tex()->index = NORTH;
-    }
+	{
+		if (ray()->raydirx > 0)
+			tex()->index = EAST;
+		else
+			tex()->index = WEST;
+	}
+	else
+	{
+		if (ray()->raydiry > 0)
+			tex()->index = SOUTH;
+		else
+			tex()->index = NORTH;
+	}
 	if (ray()->side == 0)
-        ray()->perpwalldist = (ray()->mapx - ray()->posx + (1 - ray()->stepx) / 2) / ray()->raydirx;
-    else
-        ray()->perpwalldist = (ray()->mapy - ray()->posy + (1 - ray()->stepy) / 2) / ray()->raydiry;
-    ray()->line_height = (int)(HEIGHT / ray()->perpwalldist);
+		ray()->perpwalldist = (ray()->mapx - ray()->posx
+			+ (1 - ray()->stepx) / 2) / ray()->raydirx;
+	else
+		ray()->perpwalldist = (ray()->mapy - ray()->posy
+			+ (1 - ray()->stepy) / 2) / ray()->raydiry;
+	ray()->line_height = (int)(HEIGHT / ray()->perpwalldist);
 }
 
 void	cast_ray(int x)
 {
-	init_values();
+	ray()->posx = get_game()->player.player_x;
+	ray()->posy = get_game()->player.player_y;
 	ray()->camerax = 2 * x / (double)WIDTH - 1;
 	ray()->raydirx = ray()->dirx + ray()->planex * ray()->camerax;
 	ray()->raydiry = ray()->diry + ray()->planey * ray()->camerax;
 	ray()->deltadistx = fabs(1 / ray()->raydirx);
 	ray()->deltadisty = fabs(1 / ray()->raydiry);
-	// if (ray()->deltadistx == 0)
-	// 	ray()->deltadistx = 1e30;
-	// if (ray()->deltadisty == 0)
-	// 	ray()->deltadisty = 1e30;
 	ray()->mapx = (int)ray()->posx;
 	ray()->mapy = (int)ray()->posy;
 	do_dda_calc();
-    dda_algo();
+	dda_algo();
 }
-
-
 
 void	calculate_line_height(void)
 {
@@ -126,49 +125,42 @@ void	calculate_line_height(void)
 	ray()->wall_x -= floor(ray()->wall_x);
 }
 
-void update_texture(int x)
+void	update_texture(int x)
 {
-    int tex_x;
-    int tex_y;
-    int color;
-    int y;
+	int	tex_x;
+	int	tex_y;
+	int	color;
+	int	y;
 
-    if (tex()->index < 0 || tex()->index >= 4)
-    {
-        fprintf(stderr, "Error: Texture index out of bounds\n");
-        return;
-    }
-
-    tex_x = (int)(ray()->wall_x * (double)tex()->textures[tex()->index]->width);
-    if (ray()->side == 0 && ray()->raydirx > 0)
-        tex_x = tex()->textures[tex()->index]->width - tex_x - 1;
-    if (ray()->side == 1 && ray()->raydiry < 0)
-        tex_x = tex()->textures[tex()->index]->width - tex_x - 1;
-
-    // Ensure tex_x is within bounds
-    if (tex_x < 0 || (uint32_t)tex_x >= tex()->textures[tex()->index]->width)
-    {
-        fprintf(stderr, "Error: Texture x-coordinate out of bounds\n");
-        return;
-    }
-
-    y = ray()->draw_start;
-    while (y < ray()->draw_end)
-    {
-        tex_y = (((y * 256 - HEIGHT * 128 + ray()->line_height * 128) * tex()->textures[tex()->index]->height) / ray()->line_height) / 256;
-
-        // Ensure tex_y is within bounds
-        if (tex_y < 0 || (uint32_t)tex_y >= tex()->textures[tex()->index]->height)
-        {
-            fprintf(stderr, "Error: Texture y-coordinate out of bounds\n");
-            return;
-        }
-
-        mlx_texture_t *texture = tex()->textures[tex()->index];
-        color = ((int *)texture->pixels)[tex()->textures[tex()->index]->width * tex_y + tex_x];
-        ft_put_pixel(get_game()->img, x, y, color);
-        y++;
-    }
+	if (tex()->index < 0 || tex()->index >= 4)
+	{
+		fprintf(stderr, "Error: Texture index out of bounds\n");
+		return ;
+	}
+	tex_x = (int)(ray()->wall_x * (double)tex()->textures[tex()->index]->width);
+	if (ray()->side == 0 && ray()->raydirx > 0)
+		tex_x = tex()->textures[tex()->index]->width - tex_x - 1;
+	if (ray()->side == 1 && ray()->raydiry < 0)
+		tex_x = tex()->textures[tex()->index]->width - tex_x - 1;
+	if (tex_x < 0 || (uint32_t)tex_x >= tex()->textures[tex()->index]->width)
+	{
+		fprintf(stderr, "Error: Texture x-coordinate out of bounds\n");
+		return ;
+	}
+	y = ray()->draw_start;
+	while (y < ray()->draw_end)
+	{
+		tex_y = (((y * 256 - HEIGHT * 128 + ray()->line_height * 128) * tex()->textures[tex()->index]->height) / ray()->line_height) / 256;
+		if (tex_y < 0 || (uint32_t)tex_y >= tex()->textures[tex()->index]->height)
+		{
+			fprintf(stderr, "Error: Texture y-coordinate out of bounds\n");
+			return ;
+		}
+		mlx_texture_t *texture = tex()->textures[tex()->index];
+		color = ((int *)texture->pixels)[tex()->textures[tex()->index]->width * tex_y + tex_x];
+		ft_put_pixel(get_game()->img, x, y, color);
+		y++;
+	}
 }
 
 void	raycasting(void)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:07:38 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/12 15:14:58 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/18 16:37:29 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_raycasting	*ray(void)
 t_texinfo	*tex(void)
 {
 	static t_texinfo	tex;
-	
+
 	return (&tex);
 }
 
@@ -51,12 +51,4 @@ t_line	*line(void)
 	static t_line	line;
 
 	return (&line);
-}
-
-void	ft_put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color)
-{
-	if (!image)
-		return ;
-	if (x > 0 && y > 0 && x < image->width && y < image->height)
-		mlx_put_pixel(image, x, y, color);
 }
