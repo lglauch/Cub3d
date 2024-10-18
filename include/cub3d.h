@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/18 16:31:31 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/18 17:20:57 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,10 @@ void			draw_on_minimap(t_minimap *minimap, char **map);
 
 //raycasting
 void			raycasting(void);
+
+//raycasting2
+void			set_direction(void);
+void			put_texture(int tex_y, int color, int x, int tex_x);
 
 //textures
 void			update_texture(int x);

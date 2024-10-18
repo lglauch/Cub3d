@@ -6,12 +6,11 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:20:46 by leo               #+#    #+#             */
-/*   Updated: 2024/10/18 16:59:25 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/18 17:06:59 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
 
 void	render_frame(void)
 {
