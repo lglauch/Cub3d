@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/18 17:20:57 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/20 16:56:43 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,9 @@ void			close_func(void *param);
 void			player_movement(void);
 void			move_player_a_d(double move_speed, double new_x, double new_y);
 void			check_boundaries(float *x, float *y);
+int				is_wall(double x, double y);
+void			p_pos(float angle_rad, float move_speed,
+					double *new_x, double *new_y);
 
 //display
 void			drawplayer_minimap(void);

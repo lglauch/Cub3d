@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jkauker <jkauker@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/18 16:58:15 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/20 12:39:36 by jkauker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_error(void)
 {
-	printf("Error in init function");
+	printf("Error in init function\n");
 	exit(EXIT_FAILURE);
 }
 
@@ -83,5 +83,6 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(get_game()->mlx, &render, get_game()->mlx);
 	mlx_loop(get_game()->mlx);
 	mlx_terminate(get_game()->mlx);
+	free(tex()->textures);
 	return (EXIT_SUCCESS);
 }

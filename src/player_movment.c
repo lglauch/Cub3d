@@ -6,50 +6,11 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:40:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/18 17:26:32 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/20 16:57:07 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-void	player_wasd(float angle_rad, float move_speed, float *x, float *y)
-{
-	void	*param;
-
-	param = get_game()->mlx;
-	if (mlx_is_key_down(param, MLX_KEY_W))
-	{
-		*x += cos(angle_rad) * move_speed;
-		*y += sin(angle_rad) * move_speed;
-	}
-	if (mlx_is_key_down(param, MLX_KEY_S))
-	{
-		*x -= cos(angle_rad) * move_speed;
-		*y -= sin(angle_rad) * move_speed;
-	}
-	if (mlx_is_key_down(param, MLX_KEY_A))
-	{
-		*x -= cos(angle_rad + M_PI_2) * move_speed;
-		*y -= sin(angle_rad + M_PI_2) * move_speed;
-	}
-	if (mlx_is_key_down(param, MLX_KEY_D))
-	{
-		*x += cos(angle_rad + M_PI_2) * move_speed;
-		*y += sin(angle_rad + M_PI_2) * move_speed;
-	}
-	check_boundaries(x, y);
-}
-
-void	update_player_direction(float player_a)
-{
-	float	angle_rad;
-
-	angle_rad = player_a * (M_PI / 180);
-	ray()->dirx = cos(angle_rad);
-	ray()->diry = sin(angle_rad);
-	ray()->planex = -0.66 * sin(angle_rad);
-	ray()->planey = 0.66 * cos(angle_rad);
-}
 
 int	is_wall(double x, double y)
 {
@@ -64,6 +25,34 @@ int	is_wall(double x, double y)
 		return (1);
 	}
 	return (get_game()->map.map[map_y][map_x] == '1');
+}
+
+void	player_wasd(float angle_rad, float move_speed, float *x, float *y)
+{
+	void	*param;
+	double	new_x;
+	double	new_y;
+
+	param = get_game()->mlx;
+	new_x = *x;
+	new_y = *y;
+	p_pos(angle_rad, move_speed, &new_x, &new_y);
+	if (!is_wall(new_x, *y))
+		*x = new_x;
+	if (!is_wall(*x, new_y))
+		*y = new_y;
+	check_boundaries(x, y);
+}
+
+void	update_player_direction(float player_a)
+{
+	float	angle_rad;
+
+	angle_rad = player_a * (M_PI / 180);
+	ray()->dirx = cos(angle_rad);
+	ray()->diry = sin(angle_rad);
+	ray()->planex = -0.66 * sin(angle_rad);
+	ray()->planey = 0.66 * cos(angle_rad);
 }
 
 void	move_player(double move_speed)
@@ -97,8 +86,8 @@ void	player_movement(void)
 	const float	move_speed = 0.1;
 	const float	turn_speed = 5;
 
-	move_player(move_speed);
 	angle_rad = get_game()->player.player_a * (M_PI / 180);
+	move_player(move_speed);
 	player_wasd(angle_rad, move_speed, &get_game()->player.player_x,
 		&get_game()->player.player_y);
 	if (mlx_is_key_down(get_game()->mlx, MLX_KEY_LEFT))
