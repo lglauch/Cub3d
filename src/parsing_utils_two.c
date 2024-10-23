@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:09:58 by bebuber           #+#    #+#             */
-/*   Updated: 2024/10/23 14:15:34 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/10/23 14:24:37 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	save_map_helper(char *line, int fd, char **map)
 		line = next_line(line, fd);
 		n++;
 	}
-	// map[n] = NULL;
 	return (SUCCESS);
 }
 
