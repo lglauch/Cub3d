@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:09:58 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/19 15:57:51 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/23 14:15:34 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	flood_fill(char **map, int x, int y, int max_height)
 
 	max_width = get_game()->map.map_width;
 	if (x < 0 || y < 0 || x >= max_width || y >= max_height)
-		return (true);
+		return (false);
 	if (map[y][x] == '1' || map[y][x] == '2')
 		return (true);
 	if (map[y][x] != '0')
@@ -81,10 +81,12 @@ int	save_map_helper(char *line, int fd, char **map)
 {
 	int	n;
 	int	line_length;
+	int	height;
 
+	height = get_game()->map.map_height;
 	n = 0;
 	line_length = 0;
-	while (line && contains_only(line, "01NESW \n"))
+	while (line && contains_only(line, "01NESW \n") && n < height)
 	{
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
