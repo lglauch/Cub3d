@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:12:03 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/18 17:24:16 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/24 12:54:53 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,13 @@ void	update_texture(int x)
 	tex_y = 0;
 	color = 0;
 	if (tex()->index < 0 || tex()->index >= 4)
-	{
-		fprintf(stderr, "Error: Texture index out of bounds\n");
 		return ;
-	}
 	tex_x = (int)(ray()->wall_x * (double)tex()->textures[tex()->index]->width);
 	if (ray()->side == 0 && ray()->raydirx > 0)
 		tex_x = tex()->textures[tex()->index]->width - tex_x - 1;
 	if (ray()->side == 1 && ray()->raydiry < 0)
 		tex_x = tex()->textures[tex()->index]->width - tex_x - 1;
 	if (tex_x < 0 || (uint32_t)tex_x >= tex()->textures[tex()->index]->width)
-	{
-		fprintf(stderr, "Error: Texture x-coordinate out of bounds\n");
 		return ;
-	}
 	put_texture(tex_y, color, x, tex_x);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:40:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/20 16:57:07 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/24 11:42:55 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,9 @@ int	is_wall(double x, double y)
 
 void	player_wasd(float angle_rad, float move_speed, float *x, float *y)
 {
-	void	*param;
 	double	new_x;
 	double	new_y;
 
-	param = get_game()->mlx;
 	new_x = *x;
 	new_y = *y;
 	p_pos(angle_rad, move_speed, &new_x, &new_y);

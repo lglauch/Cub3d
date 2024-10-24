@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_three.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 17:34:31 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/19 15:46:11 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/24 12:14:44 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,12 @@ void	fill_spaces(char *str, int start, int size)
 		start++;
 	}
 	str[start] = '\0';
+}
+
+void	free_tex_path(void)
+{
+	free(get_game()->map.north);
+	free(get_game()->map.south);
+	free(get_game()->map.west);
+	free(get_game()->map.east);
 }

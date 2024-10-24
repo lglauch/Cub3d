@@ -1,108 +1,72 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 19:49:31 by bebuber           #+#    #+#             */
-/*   Updated: 2024/06/05 14:58:39 by bebuber          ###   ########.fr       */
+/*   Created: 2023/11/30 14:14:15 by lglauch           #+#    #+#             */
+/*   Updated: 2024/10/24 12:43:30 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
-char	*ft_get_line(char *storage)
+char	*make_buffer(int fd, char *buffer)
 {
-	char	*str;
-	int		i;
+	int		buffer_read;
+	char	*new_buffer;
 
-	i = 0;
-	if (storage[0] == '\0')
+	new_buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!new_buffer)
 		return (NULL);
-	while (storage[i] && storage[i] != '\n')
-		i++;
-	if (storage[i] == '\n')
-		str = (char *)ft_calloc ((i + 2), sizeof(char));
-	else
-		str = (char *)ft_calloc ((i + 1), sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	if (storage[i] == '\n')
-		str[i + 1] = '\0';
-	while (i >= 0)
+	buffer_read = 1;
+	while (buffer_read != 0)
 	{
-		str[i] = storage[i];
-		i--;
-	}
-	return (str);
-}
-
-char	*ft_cut_line_out(char *storage)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (storage[i] && storage[i] != '\n' )
-		i++;
-	j = 0;
-	while (storage[i])
-		storage[j++] = storage[++i];
-	storage[j] = '\0';
-	return (storage);
-}
-
-char	*ft_read_into_storage(int fd, char *storage)
-{
-	int		byts_read;
-	char	buff[BUFFER_SIZE + 1];
-
-	if (storage == NULL)
-	{
-		storage = (char *)ft_calloc(1, sizeof(char));
-		if (storage == NULL)
-			return (NULL);
-		storage[0] = '\0';
-	}
-	byts_read = 1;
-	while (byts_read > 0)
-	{
-		byts_read = read (fd, buff, BUFFER_SIZE);
-		if (byts_read < 0)
-		{
-			free (storage);
-			return (NULL);
-		}
-		buff[byts_read] = '\0';
-		storage = ft_strjoin(storage, buff);
-		if (ft_strchr(buff, '\n'))
+		buffer_read = read(fd, new_buffer, BUFFER_SIZE);
+		if (buffer_read == 0)
+			break ;
+		if (buffer_read == -1)
+			return (free(new_buffer), free(buffer), NULL);
+		new_buffer[buffer_read] = '\0';
+		buffer = ft_strjoinn(buffer, new_buffer);
+		if (ft_strchrr(buffer, '\n'))
 			break ;
 	}
-	return (storage);
+	free(new_buffer);
+	return (buffer);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*storage[OPEN_MAX];
-	char		*line;
+	static char	*buffer;
+	char		*next_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX || read(fd, 0, 0) < 0)
-	{
-		free (storage[fd]);
-		storage[fd] = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+		return (free (buffer), buffer = NULL, NULL);
+	buffer = make_buffer(fd, buffer);
+	if (!buffer || buffer[0] == '\0')
 		return (NULL);
-	}
-	storage[fd] = ft_read_into_storage (fd, storage[fd]);
-	if (storage[fd] == NULL)
-		return (NULL);
-	line = ft_get_line(storage[fd]);
-	if (line == NULL || storage[fd][0] == '\0' || storage[fd] == NULL)
-	{
-		free (storage[fd]);
-		storage[fd] = NULL;
-		return (NULL);
-	}
-	storage[fd] = ft_cut_line_out(storage[fd]);
-	return (line);
+	next_line = get_theline(buffer);
+	buffer = newline(buffer);
+	return (next_line);
 }
+
+// #include <stdio.h>
+// #include <fcntl.h>
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	int		i;
+
+// 	i = 0;
+// 	fd = open("text.txt", O_RDONLY);
+// 	while ((line = get_next_line(fd)) != NULL)
+// 	{
+// 		printf("Line: %d - " "%s\n", ++i, line);
+// 		free(line);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }

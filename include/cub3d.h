@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/20 16:56:43 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/24 12:16:11 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ bool			contains_only(const char *str, const char *allowedchars);
 bool			contains_any(const char *str, const char *chars);
 char			*next_line(char *line, int fd);
 void			error_exit(char *message, char *line, int fd);
+void			free_tex_path(void);
 
 //parsing_utils_two
 bool			flood_fill(char **map, int x, int y, int max_height);

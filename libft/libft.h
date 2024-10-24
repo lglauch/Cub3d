@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:57:17 by lglauch           #+#    #+#             */
-/*   Updated: 2024/09/03 19:04:40 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/10/24 12:42:00 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stddef.h>
 # include <stdio.h>
 # include <stdarg.h>
+# include "get_next_line.h"
 # include <limits.h>
 
 # ifndef BUFFER_SIZE

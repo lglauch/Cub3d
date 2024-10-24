@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:05:13 by bebuber           #+#    #+#             */
-/*   Updated: 2024/09/12 17:34:12 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/10/24 12:08:04 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,5 @@ void	error_exit(char *message, char *line, int fd)
 	free (line);
 	close (fd);
 	ft_putendl_fd(message, 2);
-	printf("hello\n");
 	exit (1);
 }

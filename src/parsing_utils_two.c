@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_two.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:09:58 by bebuber           #+#    #+#             */
-/*   Updated: 2024/10/23 14:24:37 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/10/24 12:47:33 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int	save_map_helper(char *line, int fd, char **map)
 		line = next_line(line, fd);
 		n++;
 	}
+	if (line)
+		free(line);
 	return (SUCCESS);
 }
 
@@ -115,7 +117,10 @@ int	save_map(char *file)
 	line = get_next_line(fd);
 	map = (char **)ft_malloc((get_game()->map.map_height * sizeof(char *)));
 	if (!map)
+	{
+		free(line);
 		return (FAIL);
+	}
 	while (line && !(contains_only(line, "01 \n") && contains_any(line, "01")))
 		line = next_line(line, fd);
 	if (save_map_helper(line, fd, map))
