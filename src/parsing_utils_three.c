@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 17:34:31 by bebuber           #+#    #+#             */
-/*   Updated: 2024/10/24 12:14:44 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/24 14:25:32 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	free_and_exit(char *message)
 			free(get_game()->map.map[i++]);
 		free (get_game()->map.map);
 	}
+	free_textures(tex()->textures);
+	if (get_game()->img)
+		mlx_terminate(get_game()->mlx);
 	exit (FAIL);
 }
 
@@ -73,8 +76,11 @@ void	fill_spaces(char *str, int start, int size)
 
 void	free_tex_path(void)
 {
-	free(get_game()->map.north);
-	free(get_game()->map.south);
-	free(get_game()->map.west);
-	free(get_game()->map.east);
+	if (get_game()->map.north)
+	{
+		free(get_game()->map.north);
+		free(get_game()->map.south);
+		free(get_game()->map.west);
+		free(get_game()->map.east);
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 15:12:03 by leo               #+#    #+#             */
-/*   Updated: 2024/10/18 13:32:00 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/24 13:36:17 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 void	free_textures(mlx_texture_t **texture)
 {
-	if (texture[NORTH])
-		mlx_delete_texture(texture[NORTH]);
-	if (texture[SOUTH])
-		mlx_delete_texture(texture[SOUTH]);
-	if (texture[WEST])
-		mlx_delete_texture(texture[WEST]);
-	if (texture[EAST])
-		mlx_delete_texture(texture[EAST]);
-	free (texture);
+	if (texture)
+	{
+		if (texture[NORTH])
+			mlx_delete_texture(texture[NORTH]);
+		if (texture[SOUTH])
+			mlx_delete_texture(texture[SOUTH]);
+		if (texture[WEST])
+			mlx_delete_texture(texture[WEST]);
+		if (texture[EAST])
+			mlx_delete_texture(texture[EAST]);
+		free (texture);
+	}
 }
 
 mlx_texture_t	**init_textures(void)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 14:20:46 by leo               #+#    #+#             */
-/*   Updated: 2024/10/18 17:06:59 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/24 14:13:58 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,18 @@ void	render_frame(void)
 			x++;
 		}
 		y++;
+	}
+}
+
+void	free_map(void)
+{
+	int		i;
+
+	i = 0;
+	if (get_game()->map.map)
+	{
+		while (i < get_game()->map.map_height)
+			free(get_game()->map.map[i++]);
+		free (get_game()->map.map);	
 	}
 }

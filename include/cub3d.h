@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/24 12:16:11 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/24 13:52:57 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ void			*ft_malloc(size_t size);
 mlx_texture_t	**init_textures(void);
 void			set_angle(void);
 void			set_facing_direction(char direction);
+void			free_textures(mlx_texture_t **texture);
 
 //parsing
 int				parse_map(char	*file);
@@ -218,5 +219,7 @@ void			update_texture(int x);
 
 //render
 void			render_frame(void);
+void			free_map(void);
+
 
 #endif

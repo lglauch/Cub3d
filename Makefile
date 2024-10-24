@@ -41,8 +41,8 @@
 #with -sanitizer
 
 NAME    := cub3D
-CFLAGS  := -Wextra -Wall -Werror -DDEBUG=1 -fsanitize=address
-LDFLAGS := -fsanitize=address
+CFLAGS  := -Wextra -Wall -Werror #-DDEBUG=1 -fsanitize=address
+LDFLAGS := #-fsanitize=address
 LIBMLX  := ./MLX42
 
 HEADERS := -I ./include -I $(LIBMLX)/include

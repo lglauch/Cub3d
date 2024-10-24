@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:05:13 by bebuber           #+#    #+#             */
-/*   Updated: 2024/10/24 12:08:04 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/24 14:16:24 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ char	*next_line(char *line, int fd)
 
 void	error_exit(char *message, char *line, int fd)
 {
+	free_textures(tex()->textures);
+	free_map();
+	free_tex_path();
+	if (get_game()->img)
+		mlx_terminate(get_game()->mlx);
 	free (line);
 	close (fd);
 	ft_putendl_fd(message, 2);

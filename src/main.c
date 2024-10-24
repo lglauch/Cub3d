@@ -6,7 +6,7 @@
 /*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/24 13:00:14 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/24 17:11:25 by leo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_error(void)
 {
+	mlx_terminate(get_game()->mlx);
 	printf("Error in init function\n");
 	exit(EXIT_FAILURE);
 }
@@ -22,7 +23,10 @@ void	init(void)
 {
 	get_game()->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D you belong to me", true);
 	if (!get_game()->mlx)
-		ft_error();
+	{
+		printf("Error in init function\n");
+		exit(EXIT_FAILURE);
+	}
 	get_game()->img = mlx_new_image(get_game()->mlx, WIDTH, HEIGHT);
 	get_game()->minimap = mlx_new_image(get_game()->mlx, WIDTH / 6, WIDTH / 6);
 	if (!get_game()->img || !get_game()->minimap
@@ -65,8 +69,8 @@ void	render(void *param)
 	(void)param;
 	drawplayer_minimap();
 	render_frame();
-	raycasting();
 	player_movement();
+	raycasting();
 }
 
 int	main(int argc, char **argv)
@@ -85,6 +89,6 @@ int	main(int argc, char **argv)
 	mlx_terminate(get_game()->mlx);
 	free_tex_path();
 	free(tex()->textures);
-	system("leaks");
+	free_map();
 	return (EXIT_SUCCESS);
 }
