@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:49:04 by bebuber           #+#    #+#             */
-/*   Updated: 2024/10/25 14:05:19 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/25 15:52:03 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,14 @@ void	save_colors(const char *line, t_map *map)
 		if (ft_isdigit(line[i]))
 			value = value * 10 + (line[i] - '0');
 		else if (line[i] == ',' || line[i] == '\n')
+		{
 			rgb[flag++] = value;
+			value = 0;
+		}
 		i++;
 	}
 	if (*line == 'F')
-		map->f_color = (rgb[0] << 16 | rgb[1] << 8 | rgb[2] << 8 | 255);
+		map->f_color = (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255);
 	else if (*line == 'C')
 		map->c_color = (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255);
 }
