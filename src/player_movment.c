@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 13:40:34 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/24 11:42:55 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/25 13:21:57 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	move_player(double move_speed)
 void	player_movement(void)
 {
 	float		angle_rad;
-	const float	move_speed = 0.1;
-	const float	turn_speed = 5;
+	const float	move_speed = 0.06;
+	const float	turn_speed = 4;
 
 	angle_rad = get_game()->player.player_a * (M_PI / 180);
 	move_player(move_speed);
