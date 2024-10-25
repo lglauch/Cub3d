@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:49:04 by bebuber           #+#    #+#             */
-/*   Updated: 2024/10/24 12:04:11 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/25 14:05:19 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	save_colors(const char *line, t_map *map)
 		i++;
 	}
 	if (*line == 'F')
-		map->f_color = (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255);
+		map->f_color = (rgb[0] << 16 | rgb[1] << 8 | rgb[2] << 8 | 255);
 	else if (*line == 'C')
 		map->c_color = (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255);
 }
@@ -43,8 +43,8 @@ int	save_player_loc(char *line, int i, int n)
 	if (get_game()->player.player_x == -1)
 	{
 		get_game()->player.start_dir = line[i];
-		get_game()->player.player_x = i;
-		get_game()->player.player_y = n;
+		get_game()->player.player_x = i + 0.5;
+		get_game()->player.player_y = n + 0.5;
 		return (SUCCESS);
 	}
 	else

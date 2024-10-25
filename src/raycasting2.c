@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:12:03 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/24 12:54:53 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/25 14:30:30 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	put_texture(int tex_y, int color, int x, int tex_x)
 	int				y;
 
 	y = ray()->draw_start;
+	texture = tex()->textures[tex()->index];
 	while (y < ray()->draw_end)
 	{
 		tex_y = (((y * 256 - HEIGHT * 128 + ray()->line_height * 128)
@@ -54,7 +55,6 @@ void	put_texture(int tex_y, int color, int x, int tex_x)
 			fprintf(stderr, "Error: Texture y-coordinate out of bounds\n");
 			return ;
 		}
-		texture = tex()->textures[tex()->index];
 		color = ((int *)texture->pixels)[tex()->textures[tex()->index]->width
 			* tex_y + tex_x];
 		ft_put_pixel(get_game()->img, x, y, color);

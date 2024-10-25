@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leo <leo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/24 17:11:25 by leo              ###   ########.fr       */
+/*   Updated: 2024/10/25 14:30:06 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	main(int argc, char **argv)
 	set_facing_direction(get_game()->player.start_dir);
 	set_angle();
 	tex()->textures = init_textures();
+	gamma_corrected(tex()->textures, 4);
 	create_key_hooks();
 	mlx_loop_hook(get_game()->mlx, &render, get_game()->mlx);
 	mlx_loop(get_game()->mlx);
