@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:20:47 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/25 14:29:38 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/25 17:35:44 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,5 @@ void			update_texture(int x);
 void			render_frame(void);
 void			free_map(void);
 void			gamma_corrected(mlx_texture_t **textures, int num_textures);
-
 
 #endif
