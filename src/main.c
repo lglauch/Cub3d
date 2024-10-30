@@ -6,7 +6,7 @@
 /*   By: lglauch <lglauch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 12:23:51 by lglauch           #+#    #+#             */
-/*   Updated: 2024/10/25 14:30:06 by lglauch          ###   ########.fr       */
+/*   Updated: 2024/10/25 19:11:12 by lglauch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	init(void)
 		ft_error();
 	get_game()->player.player_x = -1;
 	get_game()->player.player_y = -1;
+	get_game()->map.c_color = -1;
+	get_game()->map.f_color = -1;
 }
 
 int	check_arg(char **argv, int argc)

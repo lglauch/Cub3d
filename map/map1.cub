@@ -4,7 +4,6 @@ EA ./textures/wall.png
 WE ./textures/p1.png
 SO ./textures/stonewall.png
 
-F 0,255,0
 C 255,0,0
 
 
